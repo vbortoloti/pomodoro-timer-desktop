@@ -1,0 +1,10 @@
+C:\Users\borto\Documents\GitHub\pomodoro-timer-desktop\Pomodoro\Pomodoro.Core\bin\Debug\netstandard2.0\Pomodoro.Core.deps.json
+C:\Users\borto\Documents\GitHub\pomodoro-timer-desktop\Pomodoro\Pomodoro.Core\bin\Debug\netstandard2.0\Pomodoro.Core.dll
+C:\Users\borto\Documents\GitHub\pomodoro-timer-desktop\Pomodoro\Pomodoro.Core\bin\Debug\netstandard2.0\Pomodoro.Core.pdb
+C:\Users\borto\Documents\GitHub\pomodoro-timer-desktop\Pomodoro\Pomodoro.Core\obj\Debug\netstandard2.0\Pomodoro.Core.csproj.AssemblyReference.cache
+C:\Users\borto\Documents\GitHub\pomodoro-timer-desktop\Pomodoro\Pomodoro.Core\obj\Debug\netstandard2.0\Pomodoro.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\borto\Documents\GitHub\pomodoro-timer-desktop\Pomodoro\Pomodoro.Core\obj\Debug\netstandard2.0\Pomodoro.Core.AssemblyInfoInputs.cache
+C:\Users\borto\Documents\GitHub\pomodoro-timer-desktop\Pomodoro\Pomodoro.Core\obj\Debug\netstandard2.0\Pomodoro.Core.AssemblyInfo.cs
+C:\Users\borto\Documents\GitHub\pomodoro-timer-desktop\Pomodoro\Pomodoro.Core\obj\Debug\netstandard2.0\Pomodoro.Core.csproj.CoreCompileInputs.cache
+C:\Users\borto\Documents\GitHub\pomodoro-timer-desktop\Pomodoro\Pomodoro.Core\obj\Debug\netstandard2.0\Pomodoro.Core.dll
+C:\Users\borto\Documents\GitHub\pomodoro-timer-desktop\Pomodoro\Pomodoro.Core\obj\Debug\netstandard2.0\Pomodoro.Core.pdb
