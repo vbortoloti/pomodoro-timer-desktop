@@ -28,8 +28,8 @@ namespace WpfApp
             containerRegistry.RegisterForNavigation<TaskView>();
             containerRegistry.RegisterForNavigation<TimerView>();
             containerRegistry.RegisterForNavigation<MusicPlayerView>();
-            containerRegistry.RegisterForNavigation<MaximazedView>();
-            containerRegistry.RegisterForNavigation<MinimazedView>("MView");
+            containerRegistry.RegisterForNavigation<MaximazedView>("MaximazedView");
+            containerRegistry.RegisterForNavigation<MinimazedView>("MinimazedView");
         }
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)

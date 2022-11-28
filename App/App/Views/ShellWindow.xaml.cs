@@ -15,6 +15,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static App.Helpers.WindowHelper;
 
 namespace WpfApp.Views
 {
@@ -23,39 +24,14 @@ namespace WpfApp.Views
     /// </summary>
     public partial class ShellWindow : IModule
     {
-        private enum WindowStatus
-        {
-            Minimazed,
-            Floating,
-            Normal,
-            Maximazed
-        };
-
-        private IRegionManager region;
-        public class WindowSize
-        {
-            public double Height { get;  private set; }
-            public double Width { get; private set; }
-            public double Left { get; private set; }
-            public double Top { get; private set; }
-            public WindowSize(double height, double width)
-            {
-                Height = height;
-                Width = width;
-            }
-            public WindowSize(double height, double width, double left, double top)
-            {
-                Height = height;
-                Width = width;  
-                Left = left;
-                Top = top;
-            }
-        }
-
+        
         WindowSize NormalSize = new WindowSize(400, 400);
         WindowSize FloatingSize = new WindowSize(180, 250);
 
         private WindowStatus windowStatus = WindowStatus.Normal;
+
+        static IRegionManager region;
+        static IContainerProvider ContainerProvider;
         public ShellWindow()
         {
             InitializeComponent();
@@ -64,64 +40,36 @@ namespace WpfApp.Views
 
         public void OnInitialized(IContainerProvider containerProvider)
         {
-            region = containerProvider.Resolve<IRegionManager>();
-            region.RegisterViewWithRegion("MainRegion", typeof(MaximazedView));
+            ShellWindow.region = containerProvider.Resolve<IRegionManager>();
+            ShellWindow.region.RegisterViewWithRegion("MainRegion", typeof(MaximazedView));
         }
-        public void RegisterTypes(IContainerRegistry containerRegistry)
-        {
-
-        }
+        public void RegisterTypes(IContainerRegistry containerRegistry){ }
 
         public void CustomMaximaze()
         {
-            this.WindowState = WindowState.Normal;
             windowStatus = WindowStatus.Normal;
             this.Topmost = true;
-            SetWindowSize(NormalSize);
-            CenterWindowOnScreen();
-            //this.WindowStyle = WindowStyle.None;
+            SetWindowSize(this,NormalSize);
+            RepositionWindowOnCenter(this);
         }
         public void CustomMinimaze()
         {
-            this.WindowState = WindowState.Normal;
             windowStatus = WindowStatus.Floating;
             this.Topmost = true;
-            SetWindowSize(FloatingSize);
-            BottomLeftWindowOnScreen();
-            //this.WindowStyle = WindowStyle.None;
-        }
-        private void BottomLeftWindowOnScreen()
-        {
-            var desktopWorkingArea = System.Windows.SystemParameters.WorkArea;
-            this.Left = desktopWorkingArea.Right - this.Width;
-            this.Top = desktopWorkingArea.Bottom - this.Height;
-        }
-
-        private void CenterWindowOnScreen()
-        {
-            double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
-            double screenHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
-            double windowWidth = this.Width;
-            double windowHeight = this.Height;
-            this.Left = (screenWidth / 2) - (windowWidth / 2);
-            this.Top = (screenHeight / 2) - (windowHeight / 2);
-        }
-        private void SetWindowSize(WindowSize win)
-        {
-            this.Height = win.Height;
-            this.Width = win.Width;
+            SetWindowSize(this,FloatingSize);
+            RepositionWindowOnBottomLeft(this);
         }
 
         private void Float_Click(object sender, RoutedEventArgs e)
         {
             CustomMinimaze();
-            
+            ShellWindow.region.RequestNavigate("MainRegion", "MinimazedView");
         }
-
 
         private void Normal_Click(object sender, RoutedEventArgs e)
         {
             CustomMaximaze();
+            ShellWindow.region.RequestNavigate("MainRegion", "MaximazedView");
         }
 
     }
