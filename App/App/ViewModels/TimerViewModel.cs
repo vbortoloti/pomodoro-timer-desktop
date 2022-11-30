@@ -28,5 +28,6 @@ namespace App.ViewModels
         {
             WelcomeText = "Apertou";
         }
+
     }
 }

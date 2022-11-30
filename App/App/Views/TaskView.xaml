@@ -6,7 +6,54 @@
              xmlns:local="clr-namespace:App.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="Red">
-            
-    </Grid>
+    <StackPanel>
+        <Grid Height="60" VerticalAlignment="Top" Background="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="80"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Tasks" VerticalAlignment="Center" FontSize="25" FontWeight="Bold"></TextBlock>
+            <Button Grid.Row="0" Grid.Column="1" Width="40" Height="40" VerticalAlignment="Center" Command="{Binding Path = AddCommand}">
+                <Button.Content>
+                    <TextBlock  Height="30" VerticalAlignment="center" HorizontalAlignment="Center" FontSize="20"  Text="+"></TextBlock>
+                </Button.Content>
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Grid >
+                            <Ellipse Stroke="Black" StrokeThickness="2" />
+                            <ContentPresenter />
+                        </Grid>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </Grid>
+        <ItemsControl Name="TasksComponent" ItemsSource="{Binding ItemList}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition ></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="5*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Checked"></TextBlock>
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=description}"></TextBlock>
+                        <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal">
+                            <TextBlock  Text="{Binding Path=numberPomodoro}"/>
+                            <TextBlock  Text="/" />
+                            <TextBlock  Text="{Binding Path=maxPomodoro}" />
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+    </StackPanel>
+ 
 </UserControl>
