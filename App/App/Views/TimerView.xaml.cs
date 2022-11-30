@@ -24,5 +24,6 @@ namespace App.Views
         {
             InitializeComponent();
         }
+
     }
 }

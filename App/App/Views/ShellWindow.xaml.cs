@@ -25,7 +25,7 @@ namespace WpfApp.Views
     public partial class ShellWindow : IModule
     {
         
-        WindowSize NormalSize = new WindowSize(400, 400);
+        WindowSize NormalSize = new WindowSize(720, 1280);
         WindowSize FloatingSize = new WindowSize(180, 250);
 
         private WindowStatus windowStatus = WindowStatus.Normal;
@@ -35,13 +35,13 @@ namespace WpfApp.Views
         public ShellWindow()
         {
             InitializeComponent();
-            NormalSize = new WindowSize(this.Height, this.Width, this.Left, this.Top);
-        }
+;        }
 
         public void OnInitialized(IContainerProvider containerProvider)
         {
             ShellWindow.region = containerProvider.Resolve<IRegionManager>();
             ShellWindow.region.RegisterViewWithRegion("MainRegion", typeof(MaximazedView));
+            SetWindowSize(this, NormalSize);
         }
         public void RegisterTypes(IContainerRegistry containerRegistry){ }
 

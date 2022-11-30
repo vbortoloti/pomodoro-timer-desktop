@@ -7,21 +7,21 @@
              mc:Ignorable="d" 
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="720" d:DesignWidth="1280">
     <Grid Background="AliceBlue">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition MinWidth="800" Width="7*"/>
+                <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="10*"/>
+                <RowDefinition MinHeight="450" Height="10*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <ContentControl Grid.Row="0" Grid.Column="0" prism:RegionManager.RegionName="TimerRegion"/>
+            <ContentControl MinHeight="400" MinWidth="600" Grid.Row="0" Grid.Column="0" prism:RegionManager.RegionName="TimerRegion"/>
             <ContentControl Grid.Row="0" Grid.Column="1" prism:RegionManager.RegionName="TaskRegion"/>
             <ContentControl Grid.Row="1" Grid.ColumnSpan="2" prism:RegionManager.RegionName="MusicPlayerRegion"/>
             <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding WelcomeText}"/>
