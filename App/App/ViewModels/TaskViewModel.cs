@@ -1,4 +1,5 @@
 ﻿using App.Model;
+using ImTools;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -13,11 +14,14 @@ namespace App.ViewModels
 {
     public class TaskViewModel : BindableBase
     {
+        private Context context;
 
-        public TaskViewModel()
+        public TaskViewModel(Context context)
         {
             AddCommand= new DelegateCommand(addCommand);
+            this.context = context;
             ObservableCollection<Pomodoro> itemList = new ObservableCollection<Pomodoro>();
+            var pomodoros = context.Pomodoro.ToList();
             itemList.Add(new Pomodoro()
             {
                 description = "Primeiro Pomodoro",

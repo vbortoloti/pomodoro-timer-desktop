@@ -1,4 +1,6 @@
-﻿using System;
+﻿using App.Model;
+using App.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +22,10 @@ namespace App.Views
     /// </summary>
     public partial class TaskView : UserControl
     {
-        public TaskView()
+        public TaskView(Context context)
         {
             InitializeComponent();
+            DataContext = new TaskViewModel(context);
         }
     }
 }

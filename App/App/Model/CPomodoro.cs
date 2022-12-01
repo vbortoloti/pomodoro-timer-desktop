@@ -10,6 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Reflection.Emit;
 
+
+
 namespace App.Model
 {
     public class Context : DbContext
@@ -19,15 +21,15 @@ namespace App.Model
             Database.EnsureCreated();
         }
 
-        public DbSet<Pomodoro> Users { get; set; }
+        public DbSet<Pomodoro> Pomodoro { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Pomodoro>().HasData(GetUsers());
+            modelBuilder.Entity<Pomodoro>().HasData(GetPomodoro());
             base.OnModelCreating(modelBuilder);
         }
 
-        private static Pomodoro[] GetUsers()
+        private static Pomodoro[] GetPomodoro()
         {
             return new Pomodoro[]
             {
