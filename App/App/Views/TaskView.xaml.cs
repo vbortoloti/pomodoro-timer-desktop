@@ -22,10 +22,10 @@ namespace App.Views
     /// </summary>
     public partial class TaskView : UserControl
     {
-        public TaskView(Context context)
+        public TaskView()
         {
             InitializeComponent();
-            DataContext = new TaskViewModel(context);
+            DataContext = new TaskViewModel();
         }
     }
 }

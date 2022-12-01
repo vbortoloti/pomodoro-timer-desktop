@@ -44,7 +44,6 @@ namespace WpfApp
         {
             //containerRegistry.Register<Services.ICustomerStore, Services.DbCustomerStore>();
 
-
             containerRegistry.RegisterForNavigation<TaskView>();
             containerRegistry.RegisterForNavigation<TimerView>();
             containerRegistry.RegisterForNavigation<MusicPlayerView>();
