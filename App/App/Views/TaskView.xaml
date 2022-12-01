@@ -5,51 +5,83 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:App.Views"
              mc:Ignorable="d" 
+             xmlns:fa5="http://schemas.fontawesome.com/icons/"
              d:DesignHeight="450" d:DesignWidth="800">
-    <StackPanel>
+    <UserControl.Resources>
+        <Style x:Key="BorderConfiguration" TargetType="{x:Type Border}">
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="#ececec" />
+            <Setter Property="Background" Value="red" />
+        </Style>
+        <Style x:Key = "AddButtonTrigger" TargetType = "Ellipse">
+            <Setter Property = "Fill" Value = "white" />
+            <Style.Triggers >
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property = "Fill" Value = "green" ></Setter>
+                </Trigger>
+                
+            </Style.Triggers>
+        </Style>
+        <Style x:Key = "ListHoverTrigger" TargetType = "Grid">
+            <Setter Property = "Background" Value = "white" />
+            <Style.Triggers >
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property= "Background" Value = "#e05656" ></Setter>
+                </Trigger>
+
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <!--Style="{StaticResource AddButtonTrigger}-->
+        
+    <StackPanel Background="White">
         <Grid Height="60" VerticalAlignment="Top" Background="White">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200"/>
-                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="60"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="0" Grid.Column="0" Text="Tasks" VerticalAlignment="Center" FontSize="25" FontWeight="Bold"></TextBlock>
-            <Button Grid.Row="0" Grid.Column="1" Width="40" Height="40" VerticalAlignment="Center" Command="{Binding Path = AddCommand}">
-                <Button.Content>
-                    <TextBlock  Height="30" VerticalAlignment="center" HorizontalAlignment="Center" FontSize="20"  Text="+"></TextBlock>
+            <TextBlock  Margin="10"  Grid.Row="0" Grid.Column="0" Text="Tasks" VerticalAlignment="Center" FontSize="25" FontWeight="Bold"></TextBlock>
+            <Button  Grid.Row="0" Grid.Column="1" Width="25" Height="25" FontSize="16" Command="{Binding Path = AddCommand}" >
+                <Button.Content >
+                    <TextBlock   HorizontalAlignment="Center"  Text="+"></TextBlock>
                 </Button.Content>
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Grid >
-                            <Ellipse Stroke="Black" StrokeThickness="2" />
+                            <Ellipse Style="{StaticResource AddButtonTrigger}" StrokeDashArray="1 1" Stroke="#c2c2c2" StrokeThickness="2"  />
                             <ContentPresenter />
                         </Grid>
                     </ControlTemplate>
                 </Button.Template>
             </Button>
         </Grid>
-        <ItemsControl Name="TasksComponent" ItemsSource="{Binding ItemList}">
+
+        <ItemsControl Name="TasksComponent" ItemsSource="{Binding ItemList}"    >
             <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition ></RowDefinition>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                            <ColumnDefinition Width="5*"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Checked"></TextBlock>
-                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=description}"></TextBlock>
-                        <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal">
-                            <TextBlock  Text="{Binding Path=numberPomodoro}"/>
-                            <TextBlock  Text="/" />
-                            <TextBlock  Text="{Binding Path=maxPomodoro}" />
-                        </StackPanel>
-                    </Grid>
+                <DataTemplate >
+                    <Border Margin="5" Style="{StaticResource BorderConfiguration}">
+                        <Grid  Margin="10" Style="{StaticResource ListHoverTrigger}"> 
+                            <Grid.RowDefinitions>
+                                <RowDefinition ></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="5*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <fa5:ImageAwesome Height="10" Grid.Row="0" Grid.Column="0" Icon="{Binding Path=status}" Foreground="#FFFF7400"/>
+                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=description}"></TextBlock>
+                            <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal" >
+                                <TextBlock  Text="{Binding Path=numberPomodoro}"/>
+                                <TextBlock  Text="/" />
+                                <TextBlock  Text="{Binding Path=maxPomodoro}" />
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

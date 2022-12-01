@@ -17,6 +17,7 @@ namespace App.Model
         public int    numberLongBreakInterval { get; set; }
         public int    maxLongBreakInterval { get; set; }
         public string description { get; set; }
+        public string status { get; set; }
 
     }
 }

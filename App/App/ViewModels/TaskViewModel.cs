@@ -1,4 +1,5 @@
 ﻿using App.Model;
+using FontAwesome5;
 using ImTools;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using Prism.Commands;
@@ -9,6 +10,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace App.ViewModels
 {
@@ -24,24 +26,28 @@ namespace App.ViewModels
                 description = "Primeiro Pomodoro",
                 numberPomodoro = 5,
                 maxPomodoro=10,
+                status = "Regular_Circle",
             });
             itemList.Add(new Pomodoro()
             {
                 description = "Segundo Pomodoro",
                 numberPomodoro = 5,
                 maxPomodoro = 10,
+                status = "Solid_Check",
             });
             itemList.Add(new Pomodoro()
             {
                 description = "Terceiro Pomodoro",
                 numberPomodoro = 5,
                 maxPomodoro = 10,
+                status = "Regular_Circle",
             });
             itemList.Add(new Pomodoro()
             {
                 description = "Quarto Pomodoro",
                 numberPomodoro = 5,
                 maxPomodoro = 10,
+                status = "Solid_Circle",
             });
 
             ItemList = itemList;
@@ -64,6 +70,7 @@ namespace App.ViewModels
         public DelegateCommand AddCommand { get; set; }
         private void addCommand()
         {
+
             
         }
     }
