@@ -20,6 +20,7 @@ namespace App.ViewModels
         public TaskViewModel()
         {
             AddCommand= new DelegateCommand(addCommand);
+            OnMouseHover= new DelegateCommand(onMouseHover);
             ObservableCollection<Pomodoro> itemList = new ObservableCollection<Pomodoro>();
             itemList.Add(new Pomodoro()
             {
@@ -68,10 +69,26 @@ namespace App.ViewModels
         }
 
         public DelegateCommand AddCommand { get; set; }
+        public DelegateCommand OnMouseHover { get; set; }
         private void addCommand()
         {
 
-            
+            Console.WriteLine("Vamos trigar o add command");
+        }
+
+        private bool _isMouseOver= false;
+        public bool IsMouseOver
+        {
+            get { return _isMouseOver; }
+            set { SetProperty(ref _isMouseOver, value); }
+        }
+
+        public void onMouseHover()
+        {
+            Console.WriteLine("Vamos trigar o hover command");
+            IsMouseOver = true;
+
+
         }
     }
 }

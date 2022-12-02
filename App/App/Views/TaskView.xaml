@@ -4,14 +4,24 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:App.Views"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
+             xmlns:command="http://www.galasoft.ch/mvvmlight"
              xmlns:fa5="http://schemas.fontawesome.com/icons/"
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <Style x:Key="BorderConfiguration" TargetType="{x:Type Border}">
             <Setter Property="BorderThickness" Value="1" />
             <Setter Property="BorderBrush" Value="#ececec" />
-            <Setter Property="Background" Value="red" />
+            <Style.Triggers >
+                <DataTrigger Binding="{Binding IsMouseOver}" Value="True" >
+                    <Setter Property= "Background" Value = "#e05656" ></Setter>
+
+                 </DataTrigger>
+                <!--<Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property= "Background" Value = "#e05656" ></Setter>
+                </Trigger>-->
+            </Style.Triggers>
         </Style>
         <Style x:Key = "AddButtonTrigger" TargetType = "Ellipse">
             <Setter Property = "Fill" Value = "white" />
@@ -24,16 +34,21 @@
         </Style>
         <Style x:Key = "ListHoverTrigger" TargetType = "Grid">
             <Setter Property = "Background" Value = "white" />
-            <Style.Triggers >
+            <!--<EventSetter Event="MouseEnter" Handler="OnMouseOverCommand" />-->
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsMouseOver}" Value="True" >
+                    <Setter Property= "Background" Value = "#e05656" ></Setter>
+                </DataTrigger>
+            </Style.Triggers>
+            <!--<Style.Triggers >
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property= "Background" Value = "#e05656" ></Setter>
                 </Trigger>
-
-            </Style.Triggers>
+            </Style.Triggers>-->
         </Style>
     </UserControl.Resources>
     <!--Style="{StaticResource AddButtonTrigger}-->
-        
+
     <StackPanel Background="White">
         <Grid Height="60" VerticalAlignment="Top" Background="White">
             <Grid.RowDefinitions>
@@ -58,12 +73,35 @@
                 </Button.Template>
             </Button>
         </Grid>
+        <TextBlock Text="{Binding IsMouseOver, Mode=TwoWay}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseEnter">
+                    <!--<command:EventToCommand Command="{Binding OnMouseHover}"/>-->
+                    <i:InvokeCommandAction Command="{Binding OnMouseHover}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
 
-        <ItemsControl Name="TasksComponent" ItemsSource="{Binding ItemList}"    >
+        </TextBlock>
+
+        <ItemsControl Name="TasksComponent" ItemsSource="{Binding ItemList}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate >
-                    <Border Margin="5" Style="{StaticResource BorderConfiguration}">
-                        <Grid  Margin="10" Style="{StaticResource ListHoverTrigger}"> 
+                    <Border Margin="5" x:Name="border" Style="{StaticResource BorderConfiguration}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseEnter">
+                                <!--<command:EventToCommand Command="{Binding OnMouseHover}"/>-->
+                                <i:InvokeCommandAction Command="{Binding OnMouseHover}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+
+                        <Grid  Margin="10" x:Name="grid" Style="{StaticResource ListHoverTrigger}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseEnter">
+                                    <!--<command:EventToCommand Command="{Binding OnMouseHover}"/>-->
+                                    <i:InvokeCommandAction Command="{Binding OnMouseHover}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+
                             <Grid.RowDefinitions>
                                 <RowDefinition ></RowDefinition>
                             </Grid.RowDefinitions>
@@ -73,14 +111,54 @@
                                 <ColumnDefinition Width="*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
                             <fa5:ImageAwesome Height="10" Grid.Row="0" Grid.Column="0" Icon="{Binding Path=status}" Foreground="#FFFF7400"/>
-                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=description}"></TextBlock>
+                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=description}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseEnter">
+                                        <i:InvokeCommandAction Command="{Binding OnMouseHover, ElementName=TaskViewModel}"/>
+                                        <!--<command:EventToCommand Command="{Binding OnMouseHover}"/>-->
+                                        <!--<i:InvokeCommandAction 
+                                            Command="{Binding OnMouseHover, 
+                                                      RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" 
+                                            CommandParameter="{Binding 
+                                                ElementName=TasksComponent }" />-->                                        
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </TextBlock>
                             <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal" >
-                                <TextBlock  Text="{Binding Path=numberPomodoro}"/>
-                                <TextBlock  Text="/" />
-                                <TextBlock  Text="{Binding Path=maxPomodoro}" />
+                                <TextBlock  Text="{Binding Path=numberPomodoro}">                                    
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="MouseEnter">
+                                            <!--<command:EventToCommand Command="{Binding OnMouseHover}"/>-->
+                                            <i:InvokeCommandAction Command="{Binding OnMouseHover}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </TextBlock>
+                                <TextBlock  Text="/">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="MouseEnter">
+                                            <!--<command:EventToCommand Command="{Binding OnMouseHover}"/>-->
+                                            <i:InvokeCommandAction Command="{Binding OnMouseHover}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </TextBlock>
+                                <TextBlock  Text="{Binding Path=maxPomodoro}">
+                                    
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="MouseEnter">
+                                            <!--<command:EventToCommand Command="{Binding OnMouseHover}"/>-->
+                                            <i:InvokeCommandAction Command="{Binding OnMouseHover}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </TextBlock>
                             </StackPanel>
                         </Grid>
                     </Border>
+                    <DataTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName = "border" Property= "Background" Value = "#e05656" ></Setter>
+                            <Setter TargetName = "grid" Property= "Background" Value = "#e05656" ></Setter>
+                        </Trigger>
+                    </DataTemplate.Triggers>
 
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

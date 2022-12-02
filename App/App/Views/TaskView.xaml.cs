@@ -22,10 +22,19 @@ namespace App.Views
     /// </summary>
     public partial class TaskView : UserControl
     {
+        TaskViewModel taskViewModel;
         public TaskView()
         {
             InitializeComponent();
-            DataContext = new TaskViewModel();
+            taskViewModel = new TaskViewModel();
+        }
+
+        public void OnMouseOverCommand(object sender, MouseEventArgs e)
+        {
+            //taskViewModel.IsMouseOver = true;
+            taskViewModel.IsMouseOver = true;
+
+
         }
     }
 }
