@@ -4,12 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:App.Views"
+             xmlns:viewModel="clr-namespace:App.ViewModels"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:prism="http://prismlibrary.com/"
              mc:Ignorable="d" 
-             xmlns:command="http://www.galasoft.ch/mvvmlight"
              xmlns:fa5="http://schemas.fontawesome.com/icons/"
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
+        <viewModel:TaskViewModel x:Key="vm"/>
+
         <Style x:Key="BorderConfiguration" TargetType="{x:Type Border}">
             <Setter Property="BorderThickness" Value="1" />
             <Setter Property="BorderBrush" Value="#ececec" />
@@ -46,6 +49,7 @@
                 </Trigger>
             </Style.Triggers>-->
         </Style>
+
     </UserControl.Resources>
     <!--Style="{StaticResource AddButtonTrigger}-->
 
@@ -73,97 +77,60 @@
                 </Button.Template>
             </Button>
         </Grid>
-        <TextBlock Text="{Binding IsMouseOver, Mode=TwoWay}">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseEnter">
-                    <!--<command:EventToCommand Command="{Binding OnMouseHover}"/>-->
-                    <i:InvokeCommandAction Command="{Binding OnMouseHover}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-
-        </TextBlock>
+        <!--<TextBlock Text="{Binding IsMouseOver, Mode=TwoWay}"></TextBlock>-->
 
         <ItemsControl Name="TasksComponent" ItemsSource="{Binding ItemList}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate >
                     <Border Margin="5" x:Name="border" Style="{StaticResource BorderConfiguration}">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="MouseEnter">
-                                <!--<command:EventToCommand Command="{Binding OnMouseHover}"/>-->
-                                <i:InvokeCommandAction Command="{Binding OnMouseHover}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-
-                        <Grid  Margin="10" x:Name="grid" Style="{StaticResource ListHoverTrigger}">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="MouseEnter">
-                                    <!--<command:EventToCommand Command="{Binding OnMouseHover}"/>-->
-                                    <i:InvokeCommandAction Command="{Binding OnMouseHover}"/>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-
-                            <Grid.RowDefinitions>
-                                <RowDefinition ></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"></ColumnDefinition>
-                                <ColumnDefinition Width="5*"></ColumnDefinition>
-                                <ColumnDefinition Width="*"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <fa5:ImageAwesome Height="10" Grid.Row="0" Grid.Column="0" Icon="{Binding Path=status}" Foreground="#FFFF7400"/>
-                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=description}">
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="MouseEnter">
-                                        <i:InvokeCommandAction Command="{Binding OnMouseHover, ElementName=TaskViewModel}"/>
-                                        <!--<command:EventToCommand Command="{Binding OnMouseHover}"/>-->
-                                        <!--<i:InvokeCommandAction 
-                                            Command="{Binding OnMouseHover, 
-                                                      RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" 
-                                            CommandParameter="{Binding 
-                                                ElementName=TasksComponent }" />-->                                        
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                            </TextBlock>
-                            <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal" >
-                                <TextBlock  Text="{Binding Path=numberPomodoro}">                                    
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="MouseEnter">
-                                            <!--<command:EventToCommand Command="{Binding OnMouseHover}"/>-->
-                                            <i:InvokeCommandAction Command="{Binding OnMouseHover}"/>
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
-                                </TextBlock>
-                                <TextBlock  Text="/">
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="MouseEnter">
-                                            <!--<command:EventToCommand Command="{Binding OnMouseHover}"/>-->
-                                            <i:InvokeCommandAction Command="{Binding OnMouseHover}"/>
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
-                                </TextBlock>
-                                <TextBlock  Text="{Binding Path=maxPomodoro}">
-                                    
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="MouseEnter">
-                                            <!--<command:EventToCommand Command="{Binding OnMouseHover}"/>-->
-                                            <i:InvokeCommandAction Command="{Binding OnMouseHover}"/>
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
-                                </TextBlock>
-                            </StackPanel>
-                        </Grid>
+                        <Button  Command="{Binding Source = {StaticResource vm}, Path = AddCommand}" >
+                            <Button.Content >
+                                <TextBlock   HorizontalAlignment="Center"  Text="Texto de verificacao alelaeldaml"></TextBlock>
+                            </Button.Content>
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                            <Grid  Margin="10" x:Name="grid" Style="{StaticResource ListHoverTrigger}" >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition ></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="5*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                        <!--<Popup x:Name="ElementPopup" IsOpen="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=IsMouseOver,Mode=OneWay}"
+                                    StaysOpen="True"
+                                    Placement="Right"
+                                    PlacementTarget="{x:Null}"  Focusable="False"
+                                    SnapsToDevicePixels="True">
+                                    <Border Background="Orange" Width="90" Height="100">
+                                        <Grid>
+                                            <TextBlock Text="{Binding Path=status}" Focusable="False" />
+                                        </Grid>
+                                    </Border>
+                                </Popup>-->
+                                    <ContentControl Grid.Row="1" Content="{TemplateBinding Content}"/>
+                                     <fa5:ImageAwesome Height="10" Grid.Row="0" Grid.Column="0" Icon="{Binding Path=status}" Foreground="#FFFF7400"/>
+                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=description}"></TextBlock>
+                                    <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal" >
+                                    <TextBlock  Text="{Binding Path=numberPomodoro}"></TextBlock>
+                                    <TextBlock  Text="/"></TextBlock>
+                                    <TextBlock  Text="{Binding Path=maxPomodoro}"></TextBlock>
+                                </StackPanel>
+                            </Grid>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
                     </Border>
-                    <DataTemplate.Triggers>
+
+                    <!--<DataTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName = "border" Property= "Background" Value = "#e05656" ></Setter>
                             <Setter TargetName = "grid" Property= "Background" Value = "#e05656" ></Setter>
                         </Trigger>
-                    </DataTemplate.Triggers>
-
+                    </DataTemplate.Triggers>-->
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-
     </StackPanel>
- 
 </UserControl>

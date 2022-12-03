@@ -1,4 +1,7 @@
-﻿using App.Model;
+﻿using App.DbContexts;
+using App.Model;
+using App.Repositories;
+using App.Services;
 using FontAwesome5;
 using ImTools;
 using Microsoft.EntityFrameworkCore.Query.Internal;
@@ -20,37 +23,10 @@ namespace App.ViewModels
         public TaskViewModel()
         {
             AddCommand= new DelegateCommand(addCommand);
-            OnMouseHover= new DelegateCommand(onMouseHover);
-            ObservableCollection<Pomodoro> itemList = new ObservableCollection<Pomodoro>();
-            itemList.Add(new Pomodoro()
-            {
-                description = "Primeiro Pomodoro",
-                numberPomodoro = 5,
-                maxPomodoro=10,
-                status = "Regular_Circle",
-            });
-            itemList.Add(new Pomodoro()
-            {
-                description = "Segundo Pomodoro",
-                numberPomodoro = 5,
-                maxPomodoro = 10,
-                status = "Solid_Check",
-            });
-            itemList.Add(new Pomodoro()
-            {
-                description = "Terceiro Pomodoro",
-                numberPomodoro = 5,
-                maxPomodoro = 10,
-                status = "Regular_Circle",
-            });
-            itemList.Add(new Pomodoro()
-            {
-                description = "Quarto Pomodoro",
-                numberPomodoro = 5,
-                maxPomodoro = 10,
-                status = "Solid_Circle",
-            });
-
+            OnMouseOver = new DelegateCommand(onMouseHover);
+            //OnMouseHover= new DelegateCommand(onMouseHover);
+            var pomodoroList = PomodoroRepository.GetPomodoros();
+            ObservableCollection<Pomodoro> itemList = new ObservableCollection<Pomodoro>(pomodoroList);
             ItemList = itemList;
         }
 
@@ -69,15 +45,38 @@ namespace App.ViewModels
         }
 
         public DelegateCommand AddCommand { get; set; }
-        public DelegateCommand OnMouseHover { get; set; }
+        public DelegateCommand OnMouseOver{ get; set; }
+        //public DelegateCommand OnMouseHover { get; set; }
         private void addCommand()
         {
 
             Console.WriteLine("Vamos trigar o add command");
+            //PomodoroRepository.SavePomodoros(new Pomodoro()
+            //{
+
+            //});
+            //ItemList = PomodoroRepository.GetPomodoros();
+
         }
 
-        private bool _isMouseOver= false;
-        public bool IsMouseOver
+        //private bool _isMouseOver= true;
+        //public bool IsMouseOver
+        //{
+        //    get { return _isMouseOver; }
+        //    set { SetProperty(ref _isMouseOver, value); }
+        //}
+
+        //public void onMouseHover()
+        //{
+        //    Console.WriteLine("Vamos trigar o hover command");
+        //    IsMouseOver = true;
+
+
+        //}
+
+
+        private bool _isMouseOver = true;
+        public bool mouseOver
         {
             get { return _isMouseOver; }
             set { SetProperty(ref _isMouseOver, value); }
@@ -86,7 +85,7 @@ namespace App.ViewModels
         public void onMouseHover()
         {
             Console.WriteLine("Vamos trigar o hover command");
-            IsMouseOver = true;
+            mouseOver = true;
 
 
         }

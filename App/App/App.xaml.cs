@@ -14,6 +14,8 @@ using Microsoft.Extensions.DependencyInjection;
 using App.Model;
 using Microsoft.EntityFrameworkCore;
 using Example;
+using App.Context;
+using App.DbContexts;
 
 namespace WpfApp
 {
@@ -22,16 +24,13 @@ namespace WpfApp
     /// </summary>
     public partial class App : PrismApplication
     {
-        private readonly ServiceProvider serviceProvider;
         public App()
         {
-                ServiceCollection services = new();
-                services.AddDbContext<Context>(options =>
-                {
-                    options.UseSqlite("Data source = Pomodoro.db");
-                });
-                services.AddSingleton<MaximazedView>();
-                serviceProvider = services.BuildServiceProvider();
+            var pomodoroFactory = new PomodoroDbContextFactory("Data source = Pomodoro.db");
+            using (PomodoroDbContext dbContext = pomodoroFactory.CreateDbContext())
+            {
+                dbContext.Database.Migrate();
+            }
 
         }
 
