@@ -15,7 +15,7 @@ namespace App.Model
             {"long",  new Counter(15) },
         };
       
-        public static string ActiveCounter = "short";
+        public static string ActiveCounter = "work";
 
         public static CountDownViewModel ActiveView;
         public static CountDownViewModel DeactiveView;

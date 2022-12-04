@@ -12,13 +12,17 @@
     <Grid Background="#FBFBFB">
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
             <RowDefinition Height="25"/>
+            <RowDefinition Height="5"/>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="2*" MinHeight="200"/>
-            <RowDefinition/>
+            <RowDefinition MinHeight="200"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
+        <Button Width="25" HorizontalAlignment="Left" BorderBrush="#00707070">
+            <Button.Background>
+                <ImageBrush ImageSource="/Views/gear.png"/>
+            </Button.Background>
+        </Button>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -49,9 +53,9 @@
                     </Style>
                 </Button.Resources>
             </Button>
-           
+
         </Grid>
         <TextBlock Text="{Binding WelcomeText}"></TextBlock>
         <ContentControl Grid.Row="3" prism:RegionManager.RegionName="CountDownView"/>
-     </Grid>
+    </Grid>
 </UserControl>

@@ -11,7 +11,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
         <Viewbox Grid.Row="0">
             <TextBlock  HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding CountText}" FontFamily="Consolas" TextDecorations="{x:Null}" FontWeight="Medium" Foreground="#FFE05656"/>
@@ -22,9 +22,9 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Content="Play" Width="120" Height="35" Command="{Binding PlayCommand}"></Button>
-            <Button Grid.Column="1" Content="Pause" Width="120" Height="35" Command="{Binding PauseCommand}"></Button>
-            <Button Grid.Column="2" Content="Reset" Width="120" Height="35" Command="{Binding ResetCommand}"></Button>
+            <Button Grid.Column="0" Content="Play" Width="120" Command="{Binding PlayCommand}"></Button>
+            <Button Grid.Column="1" Content="Pause" Width="120"  Command="{Binding PauseCommand}"></Button>
+            <Button Grid.Column="2" Content="Reset" Width="120"  Command="{Binding ResetCommand}"></Button>
         </Grid>
     </Grid>
 </UserControl>
