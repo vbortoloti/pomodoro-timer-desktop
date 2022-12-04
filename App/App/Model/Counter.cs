@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 
-namespace App.Models
+namespace App.Model
 {
     public class Counter
     {
@@ -30,7 +30,7 @@ namespace App.Models
         void TimerTick(object sender, EventArgs e)
         {
             DateTime timeNow = DateTime.Now;
-            
+
         }
 
         public Counter(int timeInSeconds, CountDownViewModel countView)

@@ -15,7 +15,7 @@
             <RowDefinition Height="50"/>
             <RowDefinition Height="25"/>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*" MinHeight="200"/>
             <RowDefinition/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
@@ -52,6 +52,6 @@
            
         </Grid>
         <TextBlock Text="{Binding WelcomeText}"></TextBlock>
-        <TextBlock Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Text="25:00" FontFamily="Montserrat Medium" FontSize="150" TextDecorations="{x:Null}" FontWeight="Medium" Foreground="#FFE05656"/>
-    </Grid>
+        <ContentControl Grid.Row="3" prism:RegionManager.RegionName="CountDownView"/>
+     </Grid>
 </UserControl>

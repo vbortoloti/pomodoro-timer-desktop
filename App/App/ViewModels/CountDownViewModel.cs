@@ -1,4 +1,4 @@
-﻿using App.Models;
+﻿using App.Model;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
