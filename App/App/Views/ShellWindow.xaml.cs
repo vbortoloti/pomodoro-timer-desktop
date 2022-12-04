@@ -1,4 +1,5 @@
-﻿using App.Views;
+﻿using App.Model;
+using App.Views;
 using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
@@ -64,12 +65,14 @@ namespace WpfApp.Views
         {
             CustomMinimaze();
             ShellWindow.region.RequestNavigate("MainRegion", "MinimazedView");
+            CounterManager.SwitchView();
         }
 
         private void Normal_Click(object sender, RoutedEventArgs e)
         {
             CustomMaximaze();
             ShellWindow.region.RequestNavigate("MainRegion", "MaximazedView");
+            CounterManager.SwitchView();
         }
 
     }

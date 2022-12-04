@@ -27,22 +27,22 @@
                 <ColumnDefinition Width="125"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            
-            <Button Grid.Column="1" Content="work" Margin="10" Width="80" Background="#FFE05656" Foreground="White" BorderBrush="Transparent">
+
+            <Button Command="{Binding WorkCommand}" Grid.Column="1" Content="work" Margin="10" Width="80" Background="#FFE05656" Foreground="White" BorderBrush="Transparent">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="15"/>
                     </Style>
                 </Button.Resources>
             </Button>
-            <Button Grid.Column="2" Content="short" Margin="10" Width="80" Background="#FFE05656" Foreground="White" BorderBrush="Transparent">
+            <Button Command="{Binding ShortCommand}" Grid.Column="2" Content="short" Margin="10" Width="80" Background="#FFE05656" Foreground="White" BorderBrush="Transparent">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="15"/>
                     </Style>
                 </Button.Resources>
             </Button>
-            <Button Grid.Column="3" Content="long" Margin="10" Width="80" Background="#FFE05656" Foreground="White" BorderBrush="Transparent">
+            <Button Command="{Binding LongCommand}" Grid.Column="3" Content="long" Margin="10" Width="80" Background="#FFE05656" Foreground="White" BorderBrush="Transparent">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="15"/>
