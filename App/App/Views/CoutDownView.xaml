@@ -11,10 +11,10 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
-            <RowDefinition Height="20"/>
+            <RowDefinition Height="35"/>
         </Grid.RowDefinitions>
-        <Viewbox Grid.Row="0">
-            <TextBlock  HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding CountText}" FontFamily="Consolas" TextDecorations="{x:Null}" FontWeight="Medium" Foreground="#FFE05656"/>
+        <Viewbox MinHeight="100" Grid.Row="0">
+            <TextBlock Margin="5,0,5,0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding CountText}" FontFamily="Azeret Mono" TextDecorations="{x:Null}" Foreground="#FFE05656" FontWeight="Medium"/>
         </Viewbox>
         <Grid Grid.Row="1" >
             <Grid.ColumnDefinitions>
@@ -22,9 +22,27 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Content="Play" Width="120" Command="{Binding PlayCommand}"></Button>
-            <Button Grid.Column="1" Content="Pause" Width="120"  Command="{Binding PauseCommand}"></Button>
-            <Button Grid.Column="2" Content="Reset" Width="120"  Command="{Binding ResetCommand}"></Button>
+            <Button Background="#FFE05656" Foreground="White" BorderBrush="Transparent" HorizontalAlignment="Right" Grid.Column="0" Content="Play" Width="80" Command="{Binding PlayCommand}">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="15"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button Background="#FFE05656" Foreground="White" BorderBrush="Transparent" Grid.Column="1" Content="Pause" Width="80"  Command="{Binding PauseCommand}">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="15"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button Background="#FFE05656" Foreground="White" BorderBrush="Transparent" HorizontalAlignment="Left" Grid.Column="2" Content="Reset" Width="80"  Command="{Binding ResetCommand}">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="15"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
         </Grid>
     </Grid>
 </UserControl>
