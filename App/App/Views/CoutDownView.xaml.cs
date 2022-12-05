@@ -18,9 +18,9 @@ namespace App.Views
     /// <summary>
     /// Interaction logic for MinimazedView.xaml
     /// </summary>
-    public partial class MinimazedView : UserControl
+    public partial class CountDownView : UserControl
     {
-        public MinimazedView()
+        public CountDownView()
         {
             InitializeComponent();
         }

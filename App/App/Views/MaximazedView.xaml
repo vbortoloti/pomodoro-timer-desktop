@@ -14,15 +14,20 @@
         </Grid.ColumnDefinitions>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition MinWidth="800" Width="7*"/>
+                <ColumnDefinition Width="7*"/>
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition MinHeight="450" Height="10*"/>
+                <RowDefinition Height="10*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <ContentControl MinHeight="400" MinWidth="600" Grid.Row="0" Grid.Column="0" prism:RegionManager.RegionName="TimerRegion"/>
-            <ContentControl Grid.Row="0" Grid.Column="1" prism:RegionManager.RegionName="TaskRegion"/>
+            <Border Grid.Row="0" Grid.Column="0" BorderBrush="#FFDADADA"  BorderThickness="0,1,0,0">
+                <ContentControl prism:RegionManager.RegionName="TimerRegion"/>
+            </Border>
+            <Border Grid.Row="0" Grid.Column="1" BorderBrush="#FFDADADA"  BorderThickness="1,1,0,0">
+                <ContentControl prism:RegionManager.RegionName="TaskRegion"/>
+            </Border>
+                
             <ContentControl Grid.Row="1" Grid.ColumnSpan="2" prism:RegionManager.RegionName="MusicPlayerRegion"/>
             <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding WelcomeText}"/>
         </Grid>

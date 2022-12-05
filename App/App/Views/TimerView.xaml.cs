@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Prism.Ioc;
+using Prism.Modularity;
+using Prism.Regions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,12 +21,22 @@ namespace App.Views
     /// <summary>
     /// Interaction logic for TimerView.xaml
     /// </summary>
-    public partial class TimerView : UserControl
+    public partial class TimerView : IModule
     {
         public TimerView()
         {
             InitializeComponent();
         }
 
+        public void OnInitialized(IContainerProvider containerProvider)
+        {
+            var region = containerProvider.Resolve<IRegionManager>();
+            region.RegisterViewWithRegion("CountDownView", typeof(CountDownView));
+        }
+
+        public void RegisterTypes(IContainerRegistry containerRegistry)
+        {
+            //throw new NotImplementedException();
+        }
     }
 }

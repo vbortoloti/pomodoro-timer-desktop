@@ -1,4 +1,5 @@
-﻿using Prism.Commands;
+﻿using App.Model;
+using Prism.Commands;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
@@ -12,22 +13,25 @@ namespace App.ViewModels
     {
         public TimerViewModel()
         {
-            WelcomeCommand = new DelegateCommand(welcome);
+            WorkCommand = new DelegateCommand(Work);
+            ShortCommand = new DelegateCommand(Short);
+            LongCommand = new DelegateCommand(Long);
         }
             
-
-        private string _welcomeText = "Teste";
-        public string WelcomeText
+        public DelegateCommand WorkCommand { get; set; }
+        private void Work()
         {
-            get { return _welcomeText; }
-            set { SetProperty(ref _welcomeText, value); }
+            CounterManager.SetActiveCounter("work");
         }
-
-        public DelegateCommand WelcomeCommand { get; set; }
-        private void welcome()
+        public DelegateCommand ShortCommand { get; set; }
+        private void Short()
         {
-            WelcomeText = "Apertou";
+            CounterManager.SetActiveCounter("short");
         }
-
+        public DelegateCommand LongCommand { get; set; }
+        private void Long()
+        {
+            CounterManager.SetActiveCounter("long");
+        }
     }
 }

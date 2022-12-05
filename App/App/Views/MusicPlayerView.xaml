@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:App.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="Green">
-            
-    </Grid>
+    <Border BorderBrush="#FFDADADA"  BorderThickness="0,3,0,0">
+        <Grid Background="White"/>
+    </Border>
 </UserControl>

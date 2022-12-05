@@ -47,7 +47,7 @@ namespace WpfApp
             containerRegistry.RegisterForNavigation<TimerView>();
             containerRegistry.RegisterForNavigation<MusicPlayerView>();
             containerRegistry.RegisterForNavigation<MaximazedView>("MaximazedView");
-            containerRegistry.RegisterForNavigation<MinimazedView>("MinimazedView");
+            containerRegistry.RegisterForNavigation<CountDownView>("MinimazedView");
         }
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
@@ -55,6 +55,7 @@ namespace WpfApp
             base.ConfigureModuleCatalog(moduleCatalog);
             moduleCatalog.AddModule<ShellWindow>();
             moduleCatalog.AddModule<MaximazedView>();
+            moduleCatalog.AddModule<TimerView>();
         }
     }
 }
