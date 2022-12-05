@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls.Primitives;
 
 namespace App.Repositories
 {
@@ -27,5 +28,28 @@ namespace App.Repositories
 
         }
 
+        public static void UpdatePomodoroStatus(Guid id, bool selected)
+        {
+            var pomodoroFactory = new PomodoroDbContextFactory("Data source = Pomodoro.db");
+            var provider = new DatabasePomodoroProvider(pomodoroFactory);
+            provider.updatePomodoroStatus(id, selected);
+            
+        }
+
+        public static void DeselectPomodoros()
+        {
+            var pomodoroFactory = new PomodoroDbContextFactory("Data source = Pomodoro.db");
+            var provider = new DatabasePomodoroProvider(pomodoroFactory);
+            provider.deselectPomodoros();
+
+        }
+
+        public static void DeletePomodoro(Guid Id)
+        {
+            var pomodoroFactory = new PomodoroDbContextFactory("Data source = Pomodoro.db");
+            var provider = new DatabasePomodoroProvider(pomodoroFactory);
+            provider.deletePomodoro(Id);
+
+        }
     }
 }

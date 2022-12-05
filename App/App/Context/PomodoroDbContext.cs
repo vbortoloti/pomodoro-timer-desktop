@@ -18,6 +18,7 @@ namespace App.Context
     {
         public PomodoroDbContext(DbContextOptions options) : base(options)
         {
+            //Database.EnsureDeleted();
             Database.EnsureCreated();
         }
 
@@ -29,6 +30,7 @@ namespace App.Context
             base.OnModelCreating(modelBuilder);
         }
 
+        //typeof stauts = Solid_Circle | Solid_Check | Regular_Circle
         private static Pomodoro[] GetPomodoro()
         {
             return new Pomodoro[]
@@ -43,8 +45,36 @@ namespace App.Context
                     maxLongBreakInterval = 2,
                     description = "Test Pomodoro",
                     status = "Solid_Circle",
+                    selected = false,
 
                 },
+                new Pomodoro
+                {
+                    Id = Guid.NewGuid(),
+                    maxPomodoro = 4,
+                    numberSmallBreakInterval = 1,
+                    maxSmallBreakInterval = 3,
+                    numberLongBreakInterval = 1,
+                    maxLongBreakInterval = 1,
+                    description = "Test Pomodoro 2",
+                    status = "Regular_Circle",
+                    selected = false,
+
+                },
+                new Pomodoro
+                {
+                    Id = Guid.NewGuid(),
+                    maxPomodoro = 5,
+                    numberSmallBreakInterval = 5,
+                    maxSmallBreakInterval = 5,
+                    numberLongBreakInterval = 5,
+                    maxLongBreakInterval = 5,
+                    description = "Test Pomodoro 3",
+                    status = "Solid_Check",
+                    selected = false,
+
+                },
+
             };
         }
     }
