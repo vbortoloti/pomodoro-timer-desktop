@@ -5,8 +5,10 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Intrinsics.Arm;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls.Primitives;
 
 namespace App.Services
 {
@@ -27,12 +29,89 @@ namespace App.Services
             }
         }
 
+        public Pomodoro FindByGuid(Guid guid)
+        {
+            using (PomodoroDbContext context = _dbContextFactory.CreateDbContext())
+            {
+                var result = context.Pomodoro.ToList()
+                    .Find((obj) => obj.Id == guid);
+                return result != null ? result : null;
+            }
+        }
+
+        public void updatePomodoroStatus(Guid id, bool selected)
+        {
+            using (PomodoroDbContext context = _dbContextFactory.CreateDbContext())
+            {
+                var result = context.Pomodoro
+                    .Where(dbPomodoro => dbPomodoro.Id == id).FirstOrDefault();
+                if (result != null)
+                {
+                    result.selected = selected;
+                    result.status= "Solid_Check";
+                    context.Pomodoro.Attach(result);
+                    context.Entry(result).State = EntityState.Modified;
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        public void updatePomodoro(Guid id, Pomodoro Pomodoro)
+        {
+            using (PomodoroDbContext context = _dbContextFactory.CreateDbContext())
+            {
+                var result = context.Pomodoro
+                    .Where(dbPomodoro => dbPomodoro.Id == id).FirstOrDefault();
+                if (result != null)
+                {
+                    result.maxPomodoro = Pomodoro.maxPomodoro;
+                    result.numberSmallBreakInterval = Pomodoro.numberSmallBreakInterval;
+                    result.maxSmallBreakInterval = Pomodoro.maxSmallBreakInterval;
+                    result.numberLongBreakInterval = Pomodoro.numberLongBreakInterval;
+                    result.maxLongBreakInterval = Pomodoro.maxLongBreakInterval;
+                    result.description = Pomodoro.description;
+                    result.status = Pomodoro.status;
+                    result.selected = Pomodoro.selected;
+                    context.Pomodoro.Attach(result);
+                    context.Entry(result).State = EntityState.Modified;
+                    context.SaveChanges();
+                }
+            }
+        }
+
+
+        public void deselectPomodoros()
+        {
+            using (PomodoroDbContext context = _dbContextFactory.CreateDbContext())
+            {
+                var result = context.Pomodoro.ToList();
+
+                if (result != null)
+                {
+                    result.ForEach(pomodoros => pomodoros.selected = false);
+                    context.SaveChanges();
+                }
+            }
+        }
+
         public void savePomodoro(Pomodoro pomodoro)
         {
             using (PomodoroDbContext context = _dbContextFactory.CreateDbContext())
             {
-                context.Pomodoro.Add(pomodoro);
+               context.Pomodoro.Add(pomodoro);
+               context.SaveChanges();
             }
+        }
+
+        public void deletePomodoro(Guid Id)
+        {
+            using (PomodoroDbContext context = _dbContextFactory.CreateDbContext())
+            {
+                var remPomod = context.Pomodoro.Where(pomdoro => pomdoro.Id == Id).First();
+                context.Pomodoro.Remove(remPomod);
+                context.SaveChanges();
+            }
+
         }
 
         //public async Task<IEnumerable<Pomodoro>> GetAllReservations()

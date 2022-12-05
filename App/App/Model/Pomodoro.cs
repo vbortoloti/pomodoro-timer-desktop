@@ -16,8 +16,9 @@ namespace App.Model
         public int    maxSmallBreakInterval { get; set; }
         public int    numberLongBreakInterval { get; set; }
         public int    maxLongBreakInterval { get; set; }
-        public string description { get; set; }
-        public string status { get; set; }
+        public string description { get; set; } = "";
+        public string status { get; set; } = "";
+        public bool selected { get; set; } = false;
 
     }
 }

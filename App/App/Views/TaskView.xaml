@@ -26,6 +26,7 @@
                 </Trigger>-->
             </Style.Triggers>
         </Style>
+
         <Style x:Key = "AddButtonTrigger" TargetType = "Ellipse">
             <Setter Property = "Fill" Value = "white" />
             <Style.Triggers >
@@ -35,7 +36,8 @@
                 
             </Style.Triggers>
         </Style>
-        <Style x:Key = "ListHoverTrigger" TargetType = "Grid">
+
+        <Style x:Key = "ListHoverTrigger" TargetType = "Button">
             <Setter Property = "Background" Value = "white" />
             <!--<EventSetter Event="MouseEnter" Handler="OnMouseOverCommand" />-->
             <Style.Triggers>
@@ -50,6 +52,71 @@
             </Style.Triggers>-->
         </Style>
 
+        <Style x:Key="ButtonConfirm" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="blue" ></Setter>
+            <Setter Property="Foreground">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="White" Offset="0"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property ="IsMouseOver" Value="True">
+                    <Setter Property= "Foreground"  >
+                        <Setter.Value>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="Green" Offset="0"/>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="ButtonCancel" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="white" ></Setter>
+            <Setter Property="Foreground">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black" Offset="0"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property ="IsMouseOver" Value="True">
+                    <Setter Property= "Foreground"  >
+                        <Setter.Value>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="Green" Offset="0"/>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="ButtonDelete" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="red" ></Setter>
+            <Setter Property="Foreground">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="White" Offset="0"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property ="IsMouseOver" Value="True">
+                    <Setter Property= "Foreground"  >
+                        <Setter.Value>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="Green" Offset="0"/>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
     <!--Style="{StaticResource AddButtonTrigger}-->
 
@@ -78,18 +145,35 @@
             </Button>
         </Grid>
         <!--<TextBlock Text="{Binding IsMouseOver, Mode=TwoWay}"></TextBlock>-->
+        <!--Style="{StaticResource ListHoverTrigger}"-->
+        <TextBlock Text="Verificando"></TextBlock>
+        <TextBlock Text="{Binding Source = {StaticResource vm}, Path = SelectedPomodoro}"></TextBlock>
+        <TextBlock Text="{Binding Source = {StaticResource vm}, Path = Selected}"></TextBlock>
 
-        <ItemsControl Name="TasksComponent" ItemsSource="{Binding ItemList}">
+        <ItemsControl Name="TasksComponent" ItemsSource="{Binding Source = {StaticResource vm}, Path = ItemList}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate >
-                    <Border Margin="5" x:Name="border" Style="{StaticResource BorderConfiguration}">
-                        <Button  Command="{Binding Source = {StaticResource vm}, Path = AddCommand}" >
+                    <Border  Margin="5" x:Name="border" Style="{StaticResource BorderConfiguration}">
+                        <Button x:Name="btnListItem"
+                                Style="{StaticResource ListHoverTrigger}"
+                                Command="{Binding Source = {StaticResource vm}, Path = SelectCommand}"
+                                CommandParameter="{Binding}"
+                                >
+                            <Button.InputBindings>
+                                <MouseBinding
+                                    MouseAction="LeftDoubleClick"
+                                    Command="{Binding Source = {StaticResource vm}, Path = OpenPopUPCommand}"
+                                    CommandParameter="{Binding}"
+                                 >
+                                </MouseBinding>
+                            </Button.InputBindings>
                             <Button.Content >
-                                <TextBlock   HorizontalAlignment="Center"  Text="Texto de verificacao alelaeldaml"></TextBlock>
+                                <TextBlock   HorizontalAlignment="Center"  Text="Texto de verificacao"></TextBlock>
                             </Button.Content>
                             <Button.Template>
                                 <ControlTemplate TargetType="Button">
-                            <Grid  Margin="10" x:Name="grid" Style="{StaticResource ListHoverTrigger}" >
+                            <Grid  Margin="10"  
+                                 >
                                 <Grid.RowDefinitions>
                                     <RowDefinition ></RowDefinition>
                                 </Grid.RowDefinitions>
@@ -98,37 +182,97 @@
                                     <ColumnDefinition Width="5*"></ColumnDefinition>
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                        <!--<Popup x:Name="ElementPopup" IsOpen="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=IsMouseOver,Mode=OneWay}"
-                                    StaysOpen="True"
-                                    Placement="Right"
-                                    PlacementTarget="{x:Null}"  Focusable="False"
-                                    SnapsToDevicePixels="True">
-                                    <Border Background="Orange" Width="90" Height="100">
-                                        <Grid>
-                                            <TextBlock Text="{Binding Path=status}" Focusable="False" />
-                                        </Grid>
-                                    </Border>
-                                </Popup>-->
-                                    <ContentControl Grid.Row="1" Content="{TemplateBinding Content}"/>
-                                     <fa5:ImageAwesome Height="10" Grid.Row="0" Grid.Column="0" Icon="{Binding Path=status}" Foreground="#FFFF7400"/>
-                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=description}"></TextBlock>
+                                        <!--<Popup x:Name="ElementPopup" IsOpen="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=IsMouseOver,Mode=OneWay}"-->
+                                        <Popup x:Name="ElementPopup" IsOpen="{Binding Path = PopUpShowState}"
+                                        StaysOpen="False"
+                                        Placement="Right"
+                                        PlacementTarget="{x:Null}"  Focusable="False"
+                                        SnapsToDevicePixels="True">
+                                        <Border Background="White" Width="250" Height="300" CornerRadius="15" Padding="10">
+                                            <StackPanel>
+                                                    <TextBlock FontWeight="Bold" FontSize="25" Text="Nova Task" Focusable="False"></TextBlock>
+                                                    <TextBlock 
+                                                        Margin="5 5 0 0"
+                                                        Text="Coloque aqui o título da tarefa e a quantidade de pomodoros desejados" 
+                                                        Focusable="False"
+                                                        TextWrapping="Wrap"
+                                                    ></TextBlock>
+                                                    <TextBox
+                                                        Text="{Binding Path=Description}"
+                                                        Margin="5 5 0 0"
+                                                    ></TextBox>
+                                                    <!--<TextBlock Text="{Binding Path=Status}" Focusable="False" />-->
+                                                    <TextBlock
+                                                        Text="Pomodoros Estimados" Focusable="False"
+                                                        Margin="5 5 0 0"
+                                                        ></TextBlock>
+                                                    <TextBox Margin="5 5 0 0" Text="{Binding Path=NumberPomodoro}"></TextBox>
+                                                    <Grid Margin="10 5 0 0">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Button Style="{StaticResource ButtonConfirm}"
+                                                                Command="{Binding Source = {StaticResource vm}, Path = EditCommand}"
+                                                                CommandParameter="{Binding}"                                                                
+                                                                Grid.Column="0" Margin="0 0 5 0" Content="Editar">
+                                                             
+                                                            <Button.Resources>
+                                                                <Style TargetType="Border">
+                                                                    <Setter Property="CornerRadius" Value="2"></Setter>
+                                                                </Style>
+                                                            </Button.Resources>
+                                                        </Button>
+                                                        <Button Style="{StaticResource ButtonDelete}"
+                                                                Command="{Binding Source = {StaticResource vm}, Path =  DeleteCommand}"
+                                                                CommandParameter="{Binding}"                                                                
+                                                                Grid.Column="1" Margin="0 0 5 0" Content="Deletar">
+                                                            <Button.Resources>
+                                                                <Style TargetType="Border">
+                                                                    <Setter Property="CornerRadius" Value="2"></Setter>
+                                                                </Style>
+                                                            </Button.Resources>
+                                                        </Button>
+                                                        <Button Style="{StaticResource ButtonCancel}" 
+                                                                Command="{Binding  Source = {StaticResource vm}, Path = CancelCommand}"
+                                                                CommandParameter="{Binding}"                                                                
+                                                                Grid.Column="2" Margin="0 0 5 0" Content="Cancelar">
+                                                            <Button.Resources>
+                                                                <Style TargetType="Border">
+                                                                    <Setter Property="CornerRadius" Value="2"></Setter>
+                                                                </Style>
+                                                            </Button.Resources>
+                                                         </Button>
+                                                    </Grid>
+
+                                            </StackPanel>
+                                        </Border>
+                                    </Popup>
+                                        <fa5:ImageAwesome Height="10" Grid.Row="0" Grid.Column="0" Icon="{Binding Path=Status}" Foreground="#FFFF7400"/>
+                                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=Description}"></TextBlock>
                                     <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal" >
-                                    <TextBlock  Text="{Binding Path=numberPomodoro}"></TextBlock>
+                                            <TextBlock  Text="{Binding Path=NumberPomodoro}"></TextBlock>
                                     <TextBlock  Text="/"></TextBlock>
-                                    <TextBlock  Text="{Binding Path=maxPomodoro}"></TextBlock>
-                                </StackPanel>
+                                            <TextBlock Text="{Binding Path=MaxPomodoro}"></TextBlock>
+                                     </StackPanel>
                             </Grid>
                                 </ControlTemplate>
                             </Button.Template>
                         </Button>
                     </Border>
 
-                    <!--<DataTemplate.Triggers>
+                    <DataTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName = "border" Property= "Background" Value = "#e05656" ></Setter>
-                            <Setter TargetName = "grid" Property= "Background" Value = "#e05656" ></Setter>
+                            <Setter TargetName = "btnListItem" Property= "Background" Value = "#e05656" ></Setter>
                         </Trigger>
-                    </DataTemplate.Triggers>-->
+                        <DataTrigger Binding="{Binding Path=Selected }" Value="True">
+                            <Setter TargetName = "border" Property= "Background" Value = "green" ></Setter>
+                            <Setter TargetName = "btnListItem" Property= "Background" Value = "green" ></Setter>
+
+                       </DataTrigger>
+                    </DataTemplate.Triggers>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
