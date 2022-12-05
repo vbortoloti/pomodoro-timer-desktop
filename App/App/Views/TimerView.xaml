@@ -14,7 +14,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
             <RowDefinition Height="5"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="60"/>
             <RowDefinition MinHeight="200"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
@@ -32,21 +32,21 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <Button Command="{Binding WorkCommand}" Grid.Column="1" Content="work" Margin="10" Width="80" Background="#FFE05656" Foreground="White" BorderBrush="Transparent">
+            <Button x:Name ="WorkButton" Command="{Binding WorkCommand}" Grid.Column="1" Content="work" Margin="10" Width="80" Background="{Binding WorkButtonBackground}" Foreground="{Binding WorkButtonForeground}" BorderBrush="{Binding WorkButtonBorderBrush}">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="15"/>
                     </Style>
                 </Button.Resources>
             </Button>
-            <Button Command="{Binding ShortCommand}" Grid.Column="2" Content="short" Margin="10" Width="80" Background="#FFE05656" Foreground="White" BorderBrush="Transparent">
+            <Button Command="{Binding ShortCommand}" Grid.Column="2" Content="short" Margin="10" Width="80" Background="{Binding ShortButtonBackground}" Foreground="{Binding ShortButtonForeground}" BorderBrush="{Binding ShortButtonBorderBrush}">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="15"/>
                     </Style>
                 </Button.Resources>
             </Button>
-            <Button Command="{Binding LongCommand}" Grid.Column="3" Content="long" Margin="10" Width="80" Background="#FFE05656" Foreground="White" BorderBrush="Transparent">
+            <Button Command="{Binding LongCommand}" Grid.Column="3" Content="long" Margin="10" Width="80" Background="{Binding LongButtonBackground}" Foreground="{Binding LongButtonForeground}" BorderBrush="{Binding LongButtonBorderBrush}">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="15"/>

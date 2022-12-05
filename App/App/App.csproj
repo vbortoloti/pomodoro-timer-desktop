@@ -16,6 +16,9 @@
 
   <ItemGroup>
     <None Remove="Views\gear.png" />
+    <None Remove="Views\pause.png" />
+    <None Remove="Views\play.png" />
+    <None Remove="Views\reset.png" />
     <None Remove="Views\tomato.png" />
   </ItemGroup>
 
@@ -32,6 +35,9 @@
 
   <ItemGroup>
     <Resource Include="Views\gear.png" />
+    <Resource Include="Views\pause.png" />
+    <Resource Include="Views\play.png" />
+    <Resource Include="Views\reset.png" />
     <Resource Include="Views\tomato.png" />
   </ItemGroup>
 
