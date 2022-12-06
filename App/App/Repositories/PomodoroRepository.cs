@@ -36,6 +36,15 @@ namespace App.Repositories
             
         }
 
+        public static void UpdatePomodoro(Guid id, Pomodoro pomodoro)
+        {
+            var pomodoroFactory = new PomodoroDbContextFactory("Data source = Pomodoro.db");
+            var provider = new DatabasePomodoroProvider(pomodoroFactory);
+            provider.updatePomodoro(id, pomodoro);
+
+        }
+        
+
         public static void DeselectPomodoros()
         {
             var pomodoroFactory = new PomodoroDbContextFactory("Data source = Pomodoro.db");

@@ -46,6 +46,23 @@ namespace App.ViewModels
             }
             return pomodoroWPF;
         }
+        public Pomodoro convertWPFModel2Pomodoro(PomodoroWPFModel wpfModel)
+        {
+            return new Pomodoro()
+            {
+                Id = new Guid(wpfModel.Id),
+                numberPomodoro = wpfModel.NumberPomodoro,
+                maxPomodoro = wpfModel.MaxPomodoro,
+                numberSmallBreakInterval = wpfModel.NumberSmallBreakInterval,
+                maxSmallBreakInterval = wpfModel.MaxSmallBreakInterval,
+                numberLongBreakInterval = wpfModel.NumberLongBreakInterval,
+                maxLongBreakInterval = wpfModel.MaxLongBreakInterval,
+                description = wpfModel.Description,
+                status = wpfModel.Status,
+                selected = wpfModel.Selected,
+
+            };
+        }
 
         public List<PomodoroWPFModel> OpenPopUp(List<Pomodoro> pomodoroList, Guid Id)
         {
@@ -96,6 +113,9 @@ namespace App.ViewModels
         public TaskViewModel()
         {
             AddCommand= new DelegateCommand(addCommand);
+            CancelCreateCommand = new DelegateCommand(cancelCreateCommand);
+            CreateCommand = new DelegateCommand(createCommand);
+            OpenPopUpCreateCommand = new DelegateCommand(openPopUpCreateCommand);
             OnMouseOver = new DelegateCommand(onMouseHover);
             SelectCommand = new DelegateCommand<object>(obj => selectCommand(obj));
             OpenPopUPCommand = new DelegateCommand<object>(obj => openPopUPCommand(obj));
@@ -150,7 +170,12 @@ namespace App.ViewModels
             }
         }
 
+        
+        public DelegateCommand CreateCommand { get; set; }
+        public DelegateCommand CancelCreateCommand { get; set; }
+        
         public DelegateCommand AddCommand { get; set; }
+        public DelegateCommand OpenPopUpCreateCommand { get; set; }
         public DelegateCommand OnMouseOver{ get; set; }
         public DelegateCommand<object> SelectCommand { get; set; }
         public DelegateCommand<object> OpenPopUPCommand { get; set; }
@@ -167,18 +192,27 @@ namespace App.ViewModels
             RefreshCollection(newOpenPopUpState);
         }
 
+        private void cancelCreateCommand()
+        {
+            CreatePopUpState = false;
+            resetCreateState();
+        }
+
+        private void resetCreateState() {
+            NewNumberPomodoro = "";
+            NewDescription = "";
+         }
+
 
         //public DelegateCommand OnMouseHover { get; set; }
         private void addCommand()
         {
+            CreatePopUpState = true;
+        }
 
-            Console.WriteLine("Vamos trigar o add command");
-            //SelectedIndex
-            //PomodoroRepository.SavePomodoros(new Pomodoro()
-            //{
-
-            //});
-            //ItemList = PomodoroRepository.GetPomodoros();
+        private void openPopUpCreateCommand()
+        {
+            CreatePopUpState = true;
 
         }
 
@@ -195,13 +229,36 @@ namespace App.ViewModels
 
         }
 
+        private void createCommand()
+        {
+            try
+            {
+                PomodoroRepository.SavePomodoros(new Pomodoro()
+                {
+                    maxPomodoro = int.Parse(NewNumberPomodoro),
+                    description = NewDescription,
+                    numberPomodoro = 0,
+                    status = "Regular_Circle",
+                });
+                ItemList = new ObservableCollection<PomodoroWPFModel>(convertPomodoro2WPFModel(PomodoroRepository.GetPomodoros()));
+                resetCreateState();
+                CreatePopUpState = false;
+            }
+            catch (Exception Erro)
+            {
+                Console.WriteLine(Erro);
+            }
+        }
         private void editCommand(object sender)
         {
 
             Console.WriteLine("Vamos trigar o edit command");
             var pomodoro = sender as PomodoroWPFModel;
             SelectedPomodoro = pomodoro?.Id;
+            PomodoroRepository.UpdatePomodoro(new Guid(pomodoro.Id), convertWPFModel2Pomodoro(pomodoro));
+
             ItemList = new ObservableCollection<PomodoroWPFModel>(convertPomodoro2WPFModel(PomodoroRepository.GetPomodoros()));
+            ClosePopUp(PomodoroRepository.GetPomodoros(), new Guid(pomodoro.Id));
 
             //SelectedIndex = 
         }
@@ -213,6 +270,7 @@ namespace App.ViewModels
             var pomodoro = sender as PomodoroWPFModel;
             PomodoroRepository.DeletePomodoro(new Guid(pomodoro.Id));
             RefreshCollection(convertPomodoro2WPFModel(PomodoroRepository.GetPomodoros()));
+            ClosePopUp(PomodoroRepository.GetPomodoros(), new Guid(pomodoro.Id));
 
         }
 
@@ -236,13 +294,26 @@ namespace App.ViewModels
             set { SetProperty(ref _selectedPomodoro, value); }
         }
 
-        //public void onMouseHover()
-        //{
-        //    Console.WriteLine("Vamos trigar o hover command");
-        //    IsMouseOver = true;
+        private bool _createPopUpState = false;
+        public bool CreatePopUpState
+        {
+            get { return _createPopUpState; }
+            set { SetProperty(ref _createPopUpState, value); }
+        }
 
+        private string _newDescription = "";
+        public string NewDescription
+        {
+            get { return _newDescription; }
+            set { SetProperty(ref _newDescription, value); }
+        }
 
-        //}
+        private string _newNumberPomodoro = "";
+        public string NewNumberPomodoro
+        {
+            get { return _newNumberPomodoro; }
+            set { SetProperty(ref _newNumberPomodoro, value); }
+        }
 
 
         private bool _isMouseOver = true;
