@@ -18,7 +18,7 @@ namespace App.Model
         static CountDownViewModel CountView;
 
         public DateTime PlannedEnd;
-
+        public event EventHandler<EventArgs> TimerEnd;
         TimeSpan elapsedTime;
         public void Play()
         {
@@ -46,17 +46,30 @@ namespace App.Model
             elapsedTime = new TimeSpan();
             PlannedEnd = new DateTime();
         }
+        
         void TimerTick(object sender, EventArgs e)
         {
             elapsedTime = PlannedEnd - DateTime.Now;
-            CountView.CountText = $"{elapsedTime.Minutes}:{elapsedTime.Seconds}";
+            CountView.CountText = elapsedTime.ToString("mm\\:ss");
+            if (elapsedTime.Minutes == 0 && elapsedTime.Seconds == 0)
+            {
+                TimerEvent.Tick -= TimerTick;
+                OnTimerEnd();
+                return;
+            }
+        }
 
+        private void OnTimerEnd()
+        {
+            Reset();
+            TimerEnd(this, EventArgs.Empty); 
         }
 
         public Counter(int timeInMinutes)
         {
             countDuration = timeInMinutes;
             TimerEvent.Interval = TimeSpan.FromMilliseconds(100);
+            TimerEnd += CounterManager.OnTimerEnd;
         }
 
         public static void SetView(CountDownViewModel view)

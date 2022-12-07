@@ -1,9 +1,11 @@
 ﻿using App.Model;
+using App.WPFModel;
 using Prism.Commands;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,6 +13,93 @@ namespace App.ViewModels
 {
     public class TimerViewModel: BindableBase
     {
+        #region popup
+        private void cancelCreateCommand()
+        {
+            CreatePopUpState = false;
+        }
+
+      
+        private void openPopUpCreateCommand()
+        {
+            CreatePopUpState = true;
+
+        }
+
+        private bool _createPopUpState = false;
+        public bool CreatePopUpState
+        {
+            get { return _createPopUpState; }
+            set { SetProperty(ref _createPopUpState, value);}
+        }
+        
+        private bool _isLowFocus = false;
+        public bool IsLowFocus
+        {
+            get { return _isLowFocus; }
+            set { SetProperty(ref _isLowFocus, value); if (value == true) { CounterManager.workDuration = 10; CounterManager.shortDuration = 5; CounterManager.longDuration = 10; CounterManager.UpdateCountersDuration(); } }
+        }
+        private bool _isStandard = true;
+        public bool IsStandard
+        {
+            get { return _isStandard; }
+            set { SetProperty(ref _isStandard, value); if (value == true) { CounterManager.workDuration = 25; CounterManager.shortDuration = 5; CounterManager.longDuration = 15; CounterManager.UpdateCountersDuration(); } }
+        }
+
+        private bool _isHighFocus = false;
+        public bool IsHighFocus
+        {
+            get { return _isHighFocus; }
+            set { SetProperty(ref _isHighFocus, value); if (value == true) { CounterManager.workDuration = 40; CounterManager.shortDuration = 8; CounterManager.longDuration = 20; CounterManager.UpdateCountersDuration(); } }
+        } 
+        
+        private bool _isIntenseFocus = false;
+        public bool IsIntenseFocus
+        {
+            get { return _isIntenseFocus; }
+            set { SetProperty(ref _isIntenseFocus, value); if (value == true) { CounterManager.workDuration = 55; CounterManager.shortDuration = 10; CounterManager.longDuration = 25; CounterManager.UpdateCountersDuration(); } }
+        }
+
+        private bool _isCustom = false;
+        public bool IsCustom
+        {
+            get { return _isCustom; }
+            set { SetProperty(ref _isCustom, value); }
+        }
+        
+        private int _workSliderValue = CounterManager.workDuration;
+        public int WorkSliderValue
+        {
+            get { return _workSliderValue; }
+            set { SetProperty(ref _workSliderValue, value); CounterManager.workDuration = value; CounterManager.UpdateCountersDuration(); }
+        }
+        
+        private int _shortSliderValue = CounterManager.shortDuration;
+        public int ShortSliderValue
+        {
+            get { return _shortSliderValue; }
+            set { SetProperty(ref _shortSliderValue, value); CounterManager.shortDuration = value; CounterManager.UpdateCountersDuration(); }
+        }
+        
+        private int _longSliderValue = CounterManager.longDuration;
+        public int LongSliderValue
+        {
+            get { return _longSliderValue; }
+            set { SetProperty(ref _longSliderValue, value); CounterManager.longDuration = value; CounterManager.UpdateCountersDuration();  }
+        }
+
+        public DelegateCommand CreateCommand { get; set; }
+        public DelegateCommand CancelCreateCommand { get; set; }
+        public DelegateCommand OpenPopUpCreateCommand { get; set; }
+
+
+        public DelegateCommand UpdateSliderCommand { get; set; }
+        private void UpdateSlider()
+        {
+            PlaySound();
+        }
+
+        #endregion
         public Dictionary<string, string> ActiveColorScheme = new Dictionary<string, string>()
         {
             {"Background", "#FFE05656" },
@@ -26,13 +115,19 @@ namespace App.ViewModels
         };
         public TimerViewModel()
         {
-            WorkCommand = new DelegateCommand(Work);
-            ShortCommand = new DelegateCommand(Short);
-            LongCommand = new DelegateCommand(Long);
+            CancelCreateCommand = new DelegateCommand(cancelCreateCommand);
+            OpenPopUpCreateCommand = new DelegateCommand(openPopUpCreateCommand);
+
+            UpdateSliderCommand = new DelegateCommand(UpdateSlider);
+
+            WorkCommand = new DelegateCommand(WorkButton);
+            ShortCommand = new DelegateCommand(ShortButton);
+            LongCommand = new DelegateCommand(LongButton);
 
             SetWorkButton(ActiveColorScheme);
             SetShortButton(DeactiveColorScheme);
             SetLongButton(DeactiveColorScheme);
+            CounterManager.CounterFinished += OnCounterFinished;
         }
 
         #region Buttons Properties
@@ -133,13 +228,18 @@ namespace App.ViewModels
 
         #region Buttons Delegates
         public DelegateCommand WorkCommand { get; set; }
+        
         private void Work()
         {
             CounterManager.SetActiveCounter("work");
             SetWorkButton(ActiveColorScheme);
             SetShortButton(DeactiveColorScheme);
             SetLongButton(DeactiveColorScheme);
-
+        }
+        private void WorkButton()
+        {
+            PlaySound();
+            Work();
         }
         public DelegateCommand ShortCommand { get; set; }
         private void Short()
@@ -149,6 +249,11 @@ namespace App.ViewModels
             SetShortButton(ActiveColorScheme);
             SetLongButton(DeactiveColorScheme);
         }
+        private void ShortButton()
+        {
+            PlaySound();
+            Short();
+        }
         public DelegateCommand LongCommand { get; set; }
         private void Long()
         {
@@ -157,6 +262,25 @@ namespace App.ViewModels
             SetShortButton(DeactiveColorScheme);
             SetLongButton(ActiveColorScheme);
         }
+        private void LongButton()
+        {
+            PlaySound();
+            Long();
+        }
         #endregion
+
+        private static void PlaySound()
+        {
+            var sound = Properties.Resources.click;
+            SoundPlayer player = new SoundPlayer(sound);
+            player.Play();
+        }
+        public void OnCounterFinished(object source, TimerEventArgs e)
+        {
+            if (e.ActiveCounter == "work") { Work(); return; }
+            if (e.ActiveCounter == "short") { Short(); return; }
+            if (e.ActiveCounter == "long") { Long(); return; }
+        }
     }
+
 }

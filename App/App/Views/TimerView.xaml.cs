@@ -38,5 +38,10 @@ namespace App.Views
         {
             //throw new NotImplementedException();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
