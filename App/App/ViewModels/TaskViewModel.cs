@@ -17,6 +17,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Navigation;
 
 namespace App.ViewModels
 {
@@ -125,21 +126,25 @@ namespace App.ViewModels
             CancelCommand = new DelegateCommand<object>(obj => cancelCommand(obj));
             //OnMouseHover= new DelegateCommand(onMouseHover);
             PomodoroRepository.DeselectPomodoros();
-            
+            PomodoroRepository.SelectFirst();
+
+            CounterManager.CounterFinished += sumOneInSelected;
+
+
             var pomodoroList = PomodoroRepository.GetPomodoros();
             if (pomodoroList != null && pomodoroList?.Count > 0)
             {
                 ObservableCollection<PomodoroWPFModel> itemList = new ObservableCollection<PomodoroWPFModel>(convertPomodoro2WPFModel(pomodoroList));
-                //SelectedPomodoro = itemList[0].Id;
+                SelectedPomodoro = itemList[0].Id;
                 ItemList = itemList;
 
             } else
             {
                 ItemList = new ObservableCollection<PomodoroWPFModel>();
+                SelectedPomodoro = "";
 
             }
 
-            SelectedPomodoro = "";
         }
 
         public void RefreshCollection(List<PomodoroWPFModel> newItemList)
@@ -218,6 +223,8 @@ namespace App.ViewModels
 
         private void selectCommand(object sender)
         {
+            PomodoroRepository.DeselectPomodoros();
+
             var pomodoro = sender as PomodoroWPFModel;
             if (SelectedPomodoro != "")
             {
@@ -227,21 +234,28 @@ namespace App.ViewModels
             PomodoroRepository.UpdatePomodoroStatus(new Guid(pomodoro.Id), true);
             RefreshCollection(convertPomodoro2WPFModel(PomodoroRepository.GetPomodoros()));
 
+
         }
 
         private void createCommand()
         {
             try
             {
-                PomodoroRepository.SavePomodoros(new Pomodoro()
+                PomodoroRepository.DeselectPomodoros();
+                var newPomdoroItem = new Pomodoro()
                 {
                     maxPomodoro = int.Parse(NewNumberPomodoro),
                     description = NewDescription,
                     numberPomodoro = 0,
                     status = "Regular_Circle",
-                });
+                    selected = true,
+                };
+                PomodoroRepository.SavePomodoros(newPomdoroItem);
+                SelectedPomodoro = newPomdoroItem.Id.ToString();
+
                 ItemList = new ObservableCollection<PomodoroWPFModel>(convertPomodoro2WPFModel(PomodoroRepository.GetPomodoros()));
                 resetCreateState();
+
                 CreatePopUpState = false;
             }
             catch (Exception Erro)
@@ -269,11 +283,77 @@ namespace App.ViewModels
             Console.WriteLine("Vamos trigar o delete command");
             var pomodoro = sender as PomodoroWPFModel;
             PomodoroRepository.DeletePomodoro(new Guid(pomodoro.Id));
-            RefreshCollection(convertPomodoro2WPFModel(PomodoroRepository.GetPomodoros()));
+            PomodoroRepository.SelectFirst();
+            var newPomodorosList = convertPomodoro2WPFModel(PomodoroRepository.GetPomodoros());
+            RefreshCollection(newPomodorosList);
+            if (pomodoro.Id == SelectedPomodoro)
+            {
+                if (newPomodorosList.Count > 0)
+                {
+                    SelectedPomodoro = newPomodorosList[0].Id;
+                }
+            }
             ClosePopUp(PomodoroRepository.GetPomodoros(), new Guid(pomodoro.Id));
 
         }
 
+        private int findPomodoroIndex(string Id)
+        {
+            var pomodoroList = convertPomodoro2WPFModel(PomodoroRepository.GetPomodoros());
+            for (var index = 0; index < pomodoroList.Count; index++)
+            {                
+                if (pomodoroList[index].Id == Id)
+                {
+                    return index;
+                }
+            }
+            return -1;
+        }
+
+        private PomodoroWPFModel sumUmLogic()
+        {
+            var pomodoroList = convertPomodoro2WPFModel(PomodoroRepository.GetPomodoros());
+            int selectedPomodoroIndex = findPomodoroIndex(SelectedPomodoro);
+            if (selectedPomodoroIndex >= 0)
+            {
+                while (selectedPomodoroIndex < pomodoroList.Count)
+                {
+                    if (selectedPomodoroIndex == pomodoroList.Count - 1)
+                    {
+                        if (pomodoroList[selectedPomodoroIndex].NumberPomodoro >= pomodoroList[selectedPomodoroIndex].MaxPomodoro)
+                            return null;
+                    }
+                    if (pomodoroList[selectedPomodoroIndex].NumberPomodoro < pomodoroList[selectedPomodoroIndex].MaxPomodoro)
+                    {
+                        pomodoroList[selectedPomodoroIndex].NumberPomodoro += 1; 
+                        return pomodoroList[selectedPomodoroIndex];
+                    }
+
+                    selectedPomodoroIndex++;
+                }
+
+            }
+            return null;
+        }
+
+        public void sumOneInSelected(object source, TimerEventArgs timer)
+        {
+            //var pomodorosList = PomodoroRepository.GetPomodoros();
+            //var newPomodorosList = convertPomodoro2WPFModel();
+            //RefreshCollection(newPomodorosList);
+            if(timer.ActiveCounter != "work")
+            {
+                Console.WriteLine("Vamos trigar comando soma 1");
+                PomodoroWPFModel selectedPomodoro = sumUmLogic();
+                if (selectedPomodoro != null)
+                {
+                    PomodoroRepository.UpdatePomodoro(new Guid(selectedPomodoro.Id), convertWPFModel2Pomodoro(selectedPomodoro));
+
+                }
+
+                ItemList = new ObservableCollection<PomodoroWPFModel>(convertPomodoro2WPFModel(PomodoroRepository.GetPomodoros()));
+            }
+        }
 
         private void cancelCommand(object sender)
         {
@@ -327,7 +407,6 @@ namespace App.ViewModels
         {
             Console.WriteLine("Vamos trigar o hover command");
             mouseOver = true;
-
 
         }
     }

@@ -65,6 +65,7 @@ namespace App.Services
                 if (result != null)
                 {
                     result.maxPomodoro = Pomodoro.maxPomodoro;
+                    result.numberPomodoro = Pomodoro.numberPomodoro;
                     result.numberSmallBreakInterval = Pomodoro.numberSmallBreakInterval;
                     result.maxSmallBreakInterval = Pomodoro.maxSmallBreakInterval;
                     result.numberLongBreakInterval = Pomodoro.numberLongBreakInterval;
@@ -92,6 +93,24 @@ namespace App.Services
                     context.SaveChanges();
                 }
             }
+        }
+
+        public void selectFirst()
+        {
+            using (PomodoroDbContext context = _dbContextFactory.CreateDbContext())
+            {
+                var result = context.Pomodoro.ToList();
+
+                if (result != null)
+                {
+                    if (result.Count > 0)
+                    {
+                        result[0].selected = true;
+                    }
+                    context.SaveChanges();
+                }
+            }
+
         }
 
         public void savePomodoro(Pomodoro pomodoro)

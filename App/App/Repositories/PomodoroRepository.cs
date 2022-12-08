@@ -60,5 +60,13 @@ namespace App.Repositories
             provider.deletePomodoro(Id);
 
         }
+
+        public static void SelectFirst()
+        {
+            var pomodoroFactory = new PomodoroDbContextFactory("Data source = Pomodoro.db");
+            var provider = new DatabasePomodoroProvider(pomodoroFactory);
+            provider.selectFirst();
+
+        }
     }
 }

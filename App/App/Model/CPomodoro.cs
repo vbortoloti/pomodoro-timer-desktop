@@ -18,7 +18,14 @@ namespace App.Model
     {
         public Context(DbContextOptions<Context> options) : base(options)
         {
-            Database.EnsureCreated();
+            try
+            {
+                Database.EnsureCreated();
+            }
+            catch (Exception err)
+            {
+                Console.WriteLine(err);
+            }
         }
 
         public DbSet<Pomodoro> Pomodoro { get; set; }
