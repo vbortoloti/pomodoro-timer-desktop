@@ -111,6 +111,7 @@ namespace App.ViewModels
             return pomodoroWPF;
         }
 
+        public static bool alreadySubscribed = false;
         public TaskViewModel()
         {
             AddCommand= new DelegateCommand(addCommand);
@@ -128,8 +129,11 @@ namespace App.ViewModels
             PomodoroRepository.DeselectPomodoros();
             PomodoroRepository.SelectFirst();
 
-            CounterManager.CounterFinished += sumOneInSelected;
-
+            if (!alreadySubscribed)
+            {
+                CounterManager.CounterFinished += sumOneInSelected;
+                alreadySubscribed = true;
+            }
 
             var pomodoroList = PomodoroRepository.GetPomodoros();
             if (pomodoroList != null && pomodoroList?.Count > 0)

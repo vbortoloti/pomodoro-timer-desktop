@@ -17,6 +17,8 @@
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
     <None Remove="Views\gear.png" />
+    <None Remove="Views\maximize.png" />
+    <None Remove="Views\minimize.png" />
     <None Remove="Views\pause.png" />
     <None Remove="Views\play.png" />
     <None Remove="Views\reset.png" />
@@ -35,6 +37,8 @@
 
   <ItemGroup>
     <Resource Include="Views\gear.png" />
+    <Resource Include="Views\maximize.png" />
+    <Resource Include="Views\minimize.png" />
     <Resource Include="Views\pause.png" />
     <Resource Include="Views\play.png" />
     <Resource Include="Views\reset.png" />
