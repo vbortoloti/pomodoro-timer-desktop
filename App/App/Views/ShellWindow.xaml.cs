@@ -63,6 +63,7 @@ namespace WpfApp.Views
 
         private void Float_Click(object sender, RoutedEventArgs e)
         {
+            WindowState = WindowState.Normal;
             CustomMinimaze();
             ShellWindow.region.RequestNavigate("MainRegion", "MinimazedView");
             CounterManager.SwitchView();
@@ -70,6 +71,7 @@ namespace WpfApp.Views
 
         private void Normal_Click(object sender, RoutedEventArgs e)
         {
+            WindowState = WindowState.Normal;
             CustomMaximaze();
             ShellWindow.region.RequestNavigate("MainRegion", "MaximazedView");
             CounterManager.SwitchView();

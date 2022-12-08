@@ -63,10 +63,8 @@
     <Grid Background="#FBFBFB">
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
-            <RowDefinition Height="5"/>
-            <RowDefinition Height="59"/>
+            <RowDefinition MaxHeight="50" MinHeight="10" Height="0.2"/>
             <RowDefinition MinHeight="200"/>
-            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <Button HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="0" Width="25" Height="25" FontSize="16" Command="{Binding Source = {StaticResource vm}, Path = OpenPopUpCreateCommand }" >
             <Button.Template>
@@ -77,9 +75,21 @@
                                         Placement="left"
                                         PlacementTarget="{x:Null}"  Focusable="False"
                                         SnapsToDevicePixels="True">
-                            <Border Background="White" Width="250" Height="400" CornerRadius="15" Padding="10">
+                            <Border Background="White" Width="250" Height="450" CornerRadius="15" Padding="10">
                                 <StackPanel Margin="0,10,10,0">
-                                    <RadioButton IsChecked="{Binding IsLowFocus}" GroupName="CounterStyle" Margin="10,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Height="15" >
+                                    <RadioButton IsChecked="{Binding IsDemostration}" GroupName="CounterStyle" Margin="10,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Height="15" >
+                                        Demostration
+                                    </RadioButton>
+                                    <Grid Margin="25,0,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Text="5 seg" Foreground="#8f8f8f"/>
+                                        <TextBlock Grid.Column="1" Text="2 seg" Foreground="#8f8f8f"/>
+                                        <TextBlock Grid.Column="2" Text="4 seg" Foreground="#8f8f8f"/>
+                                    </Grid><RadioButton IsChecked="{Binding IsLowFocus}" GroupName="CounterStyle" Margin="10,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Height="15" >
                                         Low Focus
                                     </RadioButton>
                                     <Grid Margin="25,0,0,0">
@@ -190,37 +200,45 @@
             </Button.Template>
         </Button>
         <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="125"/>
-                <ColumnDefinition Width="125"/>
-                <ColumnDefinition Width="125"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.25*"/>
+                <RowDefinition Height="*" MinHeight="50"/>
+                <RowDefinition Height="6*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+                <Grid Grid.Row="1" MinHeight="50" MaxHeight="50" VerticalAlignment="Bottom">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="125"/>
+                        <ColumnDefinition Width="125"/>
+                        <ColumnDefinition Width="125"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
 
-            <Button x:Name ="WorkButton" Command="{Binding WorkCommand}" Grid.Column="1" Content="work" Margin="10" Width="80" Background="{Binding WorkButtonBackground}" Foreground="{Binding WorkButtonForeground}" BorderBrush="{Binding WorkButtonBorderBrush}">
-                <Button.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="15"/>
-                    </Style>
-                </Button.Resources>
-            </Button>
-            <Button Command="{Binding ShortCommand}" Grid.Column="2" Content="short" Margin="10" Width="80" Background="{Binding ShortButtonBackground}" Foreground="{Binding ShortButtonForeground}" BorderBrush="{Binding ShortButtonBorderBrush}">
-                <Button.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="15"/>
-                    </Style>
-                </Button.Resources>
-            </Button>
-            <Button Command="{Binding LongCommand}" Grid.Column="3" Content="long" Margin="10" Width="80" Background="{Binding LongButtonBackground}" Foreground="{Binding LongButtonForeground}" BorderBrush="{Binding LongButtonBorderBrush}">
-                <Button.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="15"/>
-                    </Style>
-                </Button.Resources>
-            </Button>
+                    <Button x:Name ="WorkButton" Command="{Binding WorkCommand}" Grid.Column="1" Content="work" Margin="10,0 " Width="80" Background="{Binding WorkButtonBackground}" Foreground="{Binding WorkButtonForeground}" BorderBrush="{Binding WorkButtonBorderBrush}">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="15"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                    <Button Command="{Binding ShortCommand}" Grid.Column="2" Content="short" Margin="10,0" Width="80" Background="{Binding ShortButtonBackground}" Foreground="{Binding ShortButtonForeground}" BorderBrush="{Binding ShortButtonBorderBrush}">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="15"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                    <Button Command="{Binding LongCommand}" Grid.Column="3" Content="long" Margin="10,0" Width="80" Background="{Binding LongButtonBackground}" Foreground="{Binding LongButtonForeground}" BorderBrush="{Binding LongButtonBorderBrush}">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="15"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
 
+                </Grid>
+                <ContentControl Grid.Row="2" prism:RegionManager.RegionName="CountDownView"/>
+            </Grid>
         </Grid>
-        <ContentControl Grid.Row="3" prism:RegionManager.RegionName="CountDownView"/>
-    </Grid>
 </UserControl>

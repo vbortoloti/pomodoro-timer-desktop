@@ -16,7 +16,8 @@ namespace App.Model
         public int countDuration { get; set; }
 
         static CountDownViewModel CountView;
-
+        public bool isSeconds = false;
+        public bool isRunning = false;
         public DateTime PlannedEnd;
         public event EventHandler<EventArgs> TimerEnd;
         TimeSpan elapsedTime;
@@ -24,23 +25,29 @@ namespace App.Model
         {
             if (PlannedEnd == new DateTime())
             {
-                PlannedEnd = DateTime.Now.AddMinutes(countDuration);
+                if(isSeconds)
+                    PlannedEnd = DateTime.Now.AddSeconds(countDuration);
+                else
+                    PlannedEnd = DateTime.Now.AddMinutes(countDuration);
             }
-            if(elapsedTime != new TimeSpan())
+            if (elapsedTime != new TimeSpan())
             {
                 PlannedEnd = DateTime.Now.AddMinutes(elapsedTime.Minutes).AddSeconds(elapsedTime.Seconds);
             }
+            isRunning = true;
             TimerEvent.Tick += TimerTick;
             TimerEvent.Start();
         }
 
         public void Pause()
         {
+            isRunning = false;
             TimerEvent.Stop();
         }
 
         public void Reset()
         {
+            isRunning = false;
             CountView.CountText = $"{countDuration}:00";
             TimerEvent.Stop();
             elapsedTime = new TimeSpan();

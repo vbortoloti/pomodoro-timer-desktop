@@ -24,7 +24,8 @@ namespace App.ViewModels
         private void Play()
         {
             PlaySound();
-            CounterManager.Play();
+            if(!CounterManager.GetActiveCounter().isRunning)
+                CounterManager.Play();
         }
         public DelegateCommand PauseCommand { get; set; }
         private void Pause()
@@ -50,7 +51,16 @@ namespace App.ViewModels
 
         public void OnActiveCounterChange(object source, EventArgs e)
         {
-            var time = new DateTime().AddMinutes(CounterManager.GetActiveCounter().countDuration);
+            DateTime time;
+            if (CounterManager.GetActiveCounter().isSeconds)
+            {
+                 time = new DateTime().AddSeconds(CounterManager.GetActiveCounter().countDuration);
+            }
+            else
+            {
+                 time = new DateTime().AddMinutes(CounterManager.GetActiveCounter().countDuration);
+
+            }
             CountText = time.ToString("mm\\:ss");
         }
 

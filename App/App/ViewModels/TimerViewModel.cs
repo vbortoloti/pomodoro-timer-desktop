@@ -39,6 +39,12 @@ namespace App.ViewModels
             get { return _isLowFocus; }
             set { SetProperty(ref _isLowFocus, value); if (value == true) { CounterManager.workDuration = 10; CounterManager.shortDuration = 5; CounterManager.longDuration = 10; CounterManager.UpdateCountersDuration(); } }
         }
+        private bool _isDemostration = false;
+        public bool IsDemostration
+        {
+            get { return _isDemostration; }
+            set { SetProperty(ref _isDemostration, value); if (value == true) { CounterManager.workDuration = 5; CounterManager.shortDuration = 2; CounterManager.longDuration = 4; CounterManager.UpdateCountersDurationInSeconds(); } }
+        }
         private bool _isStandard = true;
         public bool IsStandard
         {

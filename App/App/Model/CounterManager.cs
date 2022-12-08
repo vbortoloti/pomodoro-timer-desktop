@@ -45,6 +45,7 @@ namespace App.Model
 
         public static void UpdateCountersDuration()
         {
+            SetToSeconds(false);
             Counter counter;
             Counters.TryGetValue("work", out counter);
             counter.countDuration = workDuration;
@@ -54,6 +55,27 @@ namespace App.Model
             counter.countDuration = longDuration;
             var time = new DateTime().AddMinutes(CounterManager.GetActiveCounter().countDuration);
             ActiveView.CountText = time.ToString("mm\\:ss");
+        }
+        public static void UpdateCountersDurationInSeconds()
+        {
+            SetToSeconds(true);
+            Counter counter;
+            Counters.TryGetValue("work", out counter);
+            counter.countDuration = workDuration;
+            Counters.TryGetValue("short", out counter);
+            counter.countDuration = shortDuration;
+            Counters.TryGetValue("long", out counter);
+            counter.countDuration = longDuration;
+            var time = new DateTime().AddSeconds(CounterManager.GetActiveCounter().countDuration);
+            ActiveView.CountText = time.ToString("mm\\:ss");
+        }
+
+        public static void SetToSeconds(bool isSeconds)
+        {
+            foreach(Counter counter in Counters.Values)
+            {
+                counter.isSeconds = isSeconds;
+            }
         }
         public static void SwitchView()
         {
