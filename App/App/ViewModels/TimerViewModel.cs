@@ -283,7 +283,7 @@ namespace App.ViewModels
         }
         public void OnCounterFinished(object source, TimerEventArgs e)
         {
-            if (e.ActiveCounter == "work") { Work(); return; }
+            if (e.ActiveCounter == "work") { Work() ; return; }
             if (e.ActiveCounter == "short") { Short(); return; }
             if (e.ActiveCounter == "long") { Long(); return; }
         }

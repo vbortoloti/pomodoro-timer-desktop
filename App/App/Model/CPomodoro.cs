@@ -44,10 +44,10 @@ namespace App.Model
                 {
                     Id = Guid.NewGuid(),
                     maxPomodoro = 2,
-                    numberSmallBreakInterval = 0,
-                    maxSmallBreakInterval = 2,
-                    numberLongBreakInterval = 0,
-                    maxLongBreakInterval = 2,
+                    //numberSmallBreakInterval = 0,
+                    //maxSmallBreakInterval = 2,
+                    //numberLongBreakInterval = 0,
+                    //maxLongBreakInterval = 2,
                     description = "Test Pomodoro",
 
                 },

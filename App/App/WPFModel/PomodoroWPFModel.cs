@@ -41,46 +41,46 @@ namespace App.WPFModel
                 OnPropertyChanged("MaxPomodoro");
             }
         }
-        private int _numberSmallBreakInterval { get; set; }
-        public int NumberSmallBreakInterval
-        {
-            get { return _numberSmallBreakInterval; }
-            set
-            {
-                _numberSmallBreakInterval = value;
-                OnPropertyChanged("NumberSmallBreakInterval ");
-            }
-        }
-        private int _maxSmallBreakInterval { get; set; }
-        public int MaxSmallBreakInterval
-        {
-            get { return _maxSmallBreakInterval; }
-            set
-            {
-                _maxSmallBreakInterval = value;
-                OnPropertyChanged("MaxSmallBreakInterval");
-            }
-        }
-        private int _numberLongBreakInterval { get; set; }
-        public int NumberLongBreakInterval
-        {
-            get { return _numberLongBreakInterval; }
-            set
-            {
-                _numberLongBreakInterval = value;
-                OnPropertyChanged("NumberLongBreakInterval ");
-            }
-        }
-        private int _maxLongBreakInterval { get; set; }
-        public int MaxLongBreakInterval
-        {
-            get { return _maxLongBreakInterval; }
-            set
-            {
-                _maxLongBreakInterval = value;
-                OnPropertyChanged("MaxLongBreakInterval ");
-            }
-        }
+        //private int _numberSmallBreakInterval { get; set; }
+        //public int NumberSmallBreakInterval
+        //{
+        //    get { return _numberSmallBreakInterval; }
+        //    set
+        //    {
+        //        _numberSmallBreakInterval = value;
+        //        OnPropertyChanged("NumberSmallBreakInterval ");
+        //    }
+        //}
+        //private int _maxSmallBreakInterval { get; set; }
+        //public int MaxSmallBreakInterval
+        //{
+        //    get { return _maxSmallBreakInterval; }
+        //    set
+        //    {
+        //        _maxSmallBreakInterval = value;
+        //        OnPropertyChanged("MaxSmallBreakInterval");
+        //    }
+        //}
+        //private int _numberLongBreakInterval { get; set; }
+        //public int NumberLongBreakInterval
+        //{
+        //    get { return _numberLongBreakInterval; }
+        //    set
+        //    {
+        //        _numberLongBreakInterval = value;
+        //        OnPropertyChanged("NumberLongBreakInterval ");
+        //    }
+        //}
+        //private int _maxLongBreakInterval { get; set; }
+        //public int MaxLongBreakInterval
+        //{
+        //    get { return _maxLongBreakInterval; }
+        //    set
+        //    {
+        //        _maxLongBreakInterval = value;
+        //        OnPropertyChanged("MaxLongBreakInterval ");
+        //    }
+        //}
         private string _description { get; set; } = "";
         public string Description
         {

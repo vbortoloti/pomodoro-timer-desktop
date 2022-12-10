@@ -25,8 +25,9 @@ namespace App.Views
         TaskViewModel taskViewModel;
         public TaskView()
         {
+            taskViewModel = new TaskViewModel();
+
             InitializeComponent();
-            //taskViewModel = new TaskViewModel();
         }
 
         public void OnMouseOverCommand(object sender, MouseEventArgs e)

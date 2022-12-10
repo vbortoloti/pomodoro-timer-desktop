@@ -8,11 +8,13 @@
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:prism="http://prismlibrary.com/"
              mc:Ignorable="d" 
+             xmlns:pomodoroWPFModel ="clr-namespace:App.WPFModel"
              xmlns:fa5="http://schemas.fontawesome.com/icons/"
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <viewModel:TaskViewModel x:Key="vm"/>
-
+        <pomodoroWPFModel:PomodoroWPFModel x:Key="pmvm"/>
+        
         <Style x:Key="BorderConfiguration" TargetType="{x:Type Border}">
             <Setter Property="BorderThickness" Value="1" />
             <Setter Property="BorderBrush" Value="#ececec" />
@@ -306,9 +308,9 @@
                                         <fa5:ImageAwesome Height="10" Grid.Row="0" Grid.Column="0" Icon="{Binding Path=Status}" Foreground="#FFFF7400"/>
                                         <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=Description}"></TextBlock>
                                     <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal" >
-                                            <TextBlock  Text="{Binding Path=NumberPomodoro}"></TextBlock>
+                                            <TextBlock  Text="{Binding  Path=NumberPomodoro}"></TextBlock>
                                     <TextBlock  Text="/"></TextBlock>
-                                            <TextBlock Text="{Binding Path=MaxPomodoro}"></TextBlock>
+                                            <TextBlock Text="{Binding  Path=MaxPomodoro}"></TextBlock>
                                      </StackPanel>
                             </Grid>
                                 </ControlTemplate>
@@ -321,7 +323,7 @@
                             <Setter TargetName = "border" Property= "Background" Value = "#e05656" ></Setter>
                             <Setter TargetName = "btnListItem" Property= "Background" Value = "#e05656" ></Setter>
                         </Trigger>
-                        <DataTrigger Binding="{Binding Path=Selected }" Value="True">
+                        <DataTrigger Binding="{Binding  Path=Selected}" Value="True">
                             <Setter TargetName = "border" Property= "Background" Value = "green" ></Setter>
                             <Setter TargetName = "btnListItem" Property= "Background" Value = "green" ></Setter>
 

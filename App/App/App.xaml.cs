@@ -16,6 +16,9 @@ using Microsoft.EntityFrameworkCore;
 using Example;
 using App.Context;
 using App.DbContexts;
+using DryIoc;
+using App.ViewModels;
+using App.Interface;
 
 namespace WpfApp
 {
@@ -48,6 +51,7 @@ namespace WpfApp
             containerRegistry.RegisterForNavigation<MusicPlayerView>();
             containerRegistry.RegisterForNavigation<MaximazedView>("MaximazedView");
             containerRegistry.RegisterForNavigation<CountDownView>("MinimazedView");
+
         }
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)

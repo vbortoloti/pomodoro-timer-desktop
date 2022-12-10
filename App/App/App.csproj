@@ -8,9 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="NovaPasta\**" />
     <Compile Remove="Services\NovaPasta\**" />
+    <EmbeddedResource Remove="NovaPasta\**" />
     <EmbeddedResource Remove="Services\NovaPasta\**" />
+    <None Remove="NovaPasta\**" />
     <None Remove="Services\NovaPasta\**" />
+    <Page Remove="NovaPasta\**" />
     <Page Remove="Services\NovaPasta\**" />
   </ItemGroup>
 

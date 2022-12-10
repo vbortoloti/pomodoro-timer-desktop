@@ -65,11 +65,11 @@ namespace App.Services
                 if (result != null)
                 {
                     result.maxPomodoro = Pomodoro.maxPomodoro;
-                    result.numberPomodoro = Pomodoro.numberPomodoro;
-                    result.numberSmallBreakInterval = Pomodoro.numberSmallBreakInterval;
-                    result.maxSmallBreakInterval = Pomodoro.maxSmallBreakInterval;
-                    result.numberLongBreakInterval = Pomodoro.numberLongBreakInterval;
-                    result.maxLongBreakInterval = Pomodoro.maxLongBreakInterval;
+                    //result.numberPomodoro = Pomodoro.numberPomodoro;
+                    //result.numberSmallBreakInterval = Pomodoro.numberSmallBreakInterval;
+                    //result.maxSmallBreakInterval = Pomodoro.maxSmallBreakInterval;
+                    //result.numberLongBreakInterval = Pomodoro.numberLongBreakInterval;
+                    //result.maxLongBreakInterval = Pomodoro.maxLongBreakInterval;
                     result.description = Pomodoro.description;
                     result.status = Pomodoro.status;
                     result.selected = Pomodoro.selected;
