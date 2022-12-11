@@ -33,7 +33,7 @@
             <Setter Property = "Fill" Value = "white" />
             <Style.Triggers >
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property = "Fill" Value = "green" ></Setter>
+                    <Setter Property = "Fill" Value = "#e05656" ></Setter>
                 </Trigger>
                 
             </Style.Triggers>
@@ -121,9 +121,9 @@
         </Style>
     </UserControl.Resources>
     <!--Style="{StaticResource AddButtonTrigger}-->
-
-    <StackPanel Background="White">
-        <Grid Height="60" VerticalAlignment="Top" Background="White">
+    <Border Background="White"  Padding="15">
+        <StackPanel Background="White" >
+        <Grid Height="60" VerticalAlignment="Top" Background="White" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
@@ -139,58 +139,79 @@
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Grid >
-                            <Popup x:Name="ElementPopup" IsOpen="{Binding Source = {StaticResource vm}, Path = CreatePopUpState}"
-                                        StaysOpen="True"
-                                        Placement="Right"
-                                        PlacementTarget="{x:Null}"  Focusable="False"
-                                        SnapsToDevicePixels="True">
-                                <Border Background="White" Width="250" Height="300" CornerRadius="15" Padding="10">
-                                    <StackPanel>
-                                        <TextBlock FontWeight="Bold" FontSize="25" Text="Criar Task" Focusable="False"></TextBlock>
-                                        <TextBlock 
-                                            Margin="5 5 0 0"
-                                            Text="Coloque aqui o título da tarefa e a quantidade de pomodoros desejados" 
-                                            Focusable="False"
-                                            TextWrapping="Wrap"
-                                        ></TextBlock>
-                                        <TextBox
-                                            Text="{Binding Source = {StaticResource vm},  Path=NewDescription}"
-                                            Margin="5 5 0 0"
-                                        ></TextBox>
-                                        <!--<TextBlock Text="{Binding Path=Status}" Focusable="False" />-->
-                                        <TextBlock
-                                            Text="Pomodoros Estimados" Focusable="False"
-                                            Margin="5 5 0 0"
-                                         ></TextBlock>
-                                        <TextBox Margin="5 5 0 0" Text="{Binding Source = {StaticResource vm},  Path=NewNumberPomodoro}"></TextBox>
-                                        <Grid Margin="10 5 0 0">
+                            <Popup x:Name="ElementPopup"
+                                    AllowsTransparency = "True"
+                                    IsOpen="{Binding Source = {StaticResource vm}, Path = CreatePopUpState}"
+                                    StaysOpen="True"
+                                    Placement="Right"
+                                    PlacementTarget="{x:Null}"
+                                    Focusable="False"
+                                    SnapsToDevicePixels="True">
+                                    <Border Margin="0 0 0 0" Background="White" Width="300" Height="300" CornerRadius="15">
+                                        <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*"></ColumnDefinition>
-                                                <ColumnDefinition Width="*"></ColumnDefinition>
                                             </Grid.ColumnDefinitions>
-                                            <Button Style="{StaticResource ButtonConfirm}"
-                                               Command="{Binding Source = {StaticResource vm}, Path = CreateCommand}"
-                                               CommandParameter="{Binding}"                                                                
-                                               Grid.Column="0" Margin="0 0 5 0" Content="Criar">
-                                                <Button.Resources>
-                                                    <Style TargetType="Border">
-                                                        <Setter Property="CornerRadius" Value="2"></Setter>
-                                                    </Style>
-                                                </Button.Resources>
-                                            </Button>
-                                            <Button Style="{StaticResource ButtonCancel}" 
-                                                Command="{Binding  Source = {StaticResource vm}, Path = CancelCreateCommand}"
-                                                CommandParameter="{Binding}"                                                                
-                                                Grid.Column="2" Margin="0 0 5 0" Content="Cancelar">
-                                                <Button.Resources>
-                                                    <Style TargetType="Border">
-                                                        <Setter Property="CornerRadius" Value="2"></Setter>
-                                                    </Style>
-                                                </Button.Resources>
-                                            </Button>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition  Height="3*"></RowDefinition>
+                                                <RowDefinition  Height="*"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Border  Grid.Row="0"  Padding="10">
+                                                <StackPanel>
+                                                <TextBlock FontWeight="Bold" FontSize="25" Text="Criar Task" Focusable="False"></TextBlock>
+                                                <TextBlock 
+                                                    Margin="0 5 0 5"
+                                                    Text="Coloque aqui o título da tarefa e a quantidade de pomodoros desejados" 
+                                                    FontSize="15"
+                                                    Focusable="False"
+                                                    TextWrapping="Wrap"
+                                                ></TextBlock>
+                                                <TextBox
+                                                    Text="{Binding Source = {StaticResource vm},  Path=NewDescription}"
+                                                    Margin="0 5 0 5"
+                                                    FontSize="15"
+                                                ></TextBox>
+                                                <!--<TextBlock Text="{Binding Path=Status}" Focusable="False" />-->
+                                                <TextBlock
+                                                    Text="Pomodoros Estimados" Focusable="False"
+                                                    Margin="0 5 0 5"
+                                                    FontSize="15"
+                                                 ></TextBlock>
+                                                <TextBox Margin="5 5 0 0" Text="{Binding Source = {StaticResource vm},  Path=NewNumberPomodoro}"></TextBox>
+
+                                            </StackPanel>
+                                            </Border>
+                                            <Border Padding="20" Background="#fbfbfb"  BorderBrush="Black" CornerRadius="0 0 15 15" Grid.Row="1">
+                                                <Grid >
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Button Style="{StaticResource ButtonConfirm}"
+                                                       Command="{Binding Source = {StaticResource vm}, Path = CreateCommand}"
+                                                       CommandParameter="{Binding}"                                                                
+                                                       Grid.Column="0" Margin="0 0 5 0" Content="Criar">
+                                                        <Button.Resources>
+                                                            <Style TargetType="Border">
+                                                                <Setter Property="CornerRadius" Value="2"></Setter>
+                                                            </Style>
+                                                        </Button.Resources>
+                                                    </Button>
+                                                    <Button Style="{StaticResource ButtonCancel}" 
+                                                        Command="{Binding  Source = {StaticResource vm}, Path = CancelCreateCommand}"
+                                                        CommandParameter="{Binding}"                                                                
+                                                        Grid.Column="2" Margin="0 0 5 0" Content="Cancelar">
+                                                        <Button.Resources>
+                                                            <Style TargetType="Border">
+                                                                <Setter Property="CornerRadius" Value="2"></Setter>
+                                                            </Style>
+                                                        </Button.Resources>
+                                                    </Button>
+
+                                                </Grid>
+                                            </Border>
                                         </Grid>
 
-                                    </StackPanel>
                                 </Border>
                             </Popup>
                             <Ellipse Style="{StaticResource AddButtonTrigger}" StrokeDashArray="1 1" Stroke="#c2c2c2" StrokeThickness="2"  />
@@ -200,12 +221,6 @@
                 </Button.Template>
             </Button>
         </Grid>
-        <!--<TextBlock Text="{Binding IsMouseOver, Mode=TwoWay}"></TextBlock>-->
-        <!--Style="{StaticResource ListHoverTrigger}"-->
-        <TextBlock Text="Verificando"></TextBlock>
-        <TextBlock Text="{Binding Source = {StaticResource vm}, Path = SelectedPomodoro}"></TextBlock>
-        <TextBlock Text="{Binding Source = {StaticResource vm}, Path = Selected}"></TextBlock>
-
         <ItemsControl Name="TasksComponent" ItemsSource="{Binding Source = {StaticResource vm}, Path = ItemList}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate >
@@ -228,91 +243,114 @@
                             </Button.Content>
                             <Button.Template>
                                 <ControlTemplate TargetType="Button">
-                            <Grid  Margin="10"  
-                                 >
-                                <Grid.RowDefinitions>
-                                    <RowDefinition ></RowDefinition>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"></ColumnDefinition>
-                                    <ColumnDefinition Width="5*"></ColumnDefinition>
-                                    <ColumnDefinition Width="*"></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
-                                        <!--<Popup x:Name="ElementPopup" IsOpen="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=IsMouseOver,Mode=OneWay}"-->
-                                        <Popup x:Name="ElementPopup" IsOpen="{Binding Path = PopUpShowState}"
-                                        StaysOpen="True"
-                                        Placement="Right"
-                                        PlacementTarget="{x:Null}"  Focusable="False"
-                                        SnapsToDevicePixels="True">
-                                        <Border Background="White" Width="250" Height="300" CornerRadius="15" Padding="10">
-                                            <StackPanel>
-                                                    <TextBlock FontWeight="Bold" FontSize="25" Text="Editar Task" Focusable="False"></TextBlock>
-                                                    <TextBlock 
-                                                        Margin="5 5 0 0"
-                                                        Text="Coloque aqui o título da tarefa e a quantidade de pomodoros desejados" 
-                                                        Focusable="False"
-                                                        TextWrapping="Wrap"
-                                                    ></TextBlock>
-                                                    <TextBox
-                                                        Text="{Binding Path=Description}"
-                                                        Margin="5 5 0 0"
-                                                    ></TextBox>
-                                                    <!--<TextBlock Text="{Binding Path=Status}" Focusable="False" />-->
-                                                    <TextBlock
-                                                        Text="Pomodoros Estimados" Focusable="False"
-                                                        Margin="5 5 0 0"
-                                                        ></TextBlock>
-                                                    <TextBox Margin="5 5 0 0" Text="{Binding Path=MaxPomodoro}"></TextBox>
-                                                    <Grid Margin="10 5 0 0">
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="*"></ColumnDefinition>
-                                                            <ColumnDefinition Width="*"></ColumnDefinition>
-                                                            <ColumnDefinition Width="*"></ColumnDefinition>
-                                                        </Grid.ColumnDefinitions>
-                                                        <Button Style="{StaticResource ButtonConfirm}"
-                                                                Command="{Binding Source = {StaticResource vm}, Path = EditCommand}"
-                                                                CommandParameter="{Binding}"                                                                
-                                                                Grid.Column="0" Margin="0 0 5 0" Content="Editar">
-                                                             
-                                                            <Button.Resources>
-                                                                <Style TargetType="Border">
-                                                                    <Setter Property="CornerRadius" Value="2"></Setter>
-                                                                </Style>
-                                                            </Button.Resources>
-                                                        </Button>
-                                                        <Button Style="{StaticResource ButtonDelete}"
-                                                                Command="{Binding Source = {StaticResource vm}, Path =  DeleteCommand}"
-                                                                CommandParameter="{Binding}"                                                                
-                                                                Grid.Column="1" Margin="0 0 5 0" Content="Deletar">
-                                                            <Button.Resources>
-                                                                <Style TargetType="Border">
-                                                                    <Setter Property="CornerRadius" Value="2"></Setter>
-                                                                </Style>
-                                                            </Button.Resources>
-                                                        </Button>
-                                                        <Button Style="{StaticResource ButtonCancel}" 
-                                                                Command="{Binding  Source = {StaticResource vm}, Path = CancelCommand}"
-                                                                CommandParameter="{Binding}"                                                                
-                                                                Grid.Column="2" Margin="0 0 5 0" Content="Cancelar">
-                                                            <Button.Resources>
-                                                                <Style TargetType="Border">
-                                                                    <Setter Property="CornerRadius" Value="2"></Setter>
-                                                                </Style>
-                                                            </Button.Resources>
-                                                         </Button>
-                                                    </Grid>
-
-                                            </StackPanel>
-                                        </Border>
-                                    </Popup>
-                                        <fa5:ImageAwesome Height="10" Grid.Row="0" Grid.Column="0" Icon="{Binding Path=Status}" Foreground="#FFFF7400"/>
-                                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=Description}"></TextBlock>
-                                    <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal" >
-                                            <TextBlock  Text="{Binding  Path=NumberPomodoro}"></TextBlock>
-                                    <TextBlock  Text="/"></TextBlock>
-                                            <TextBlock Text="{Binding  Path=MaxPomodoro}"></TextBlock>
-                                     </StackPanel>
-                            </Grid>
+                                    <Grid  Margin="10"  
+                                         >
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition ></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="5*"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                                <!--<Popup x:Name="ElementPopup" IsOpen="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=IsMouseOver,Mode=OneWay}"-->
+                                                <Popup x:Name="ElementPopup" 
+                                                AllowsTransparency = "True"                                               
+                                                IsOpen="{Binding Path = PopUpShowState}"                                               
+                                                StaysOpen="True"
+                                                Placement="Right"
+                                                PlacementTarget="{x:Null}"  Focusable="False"
+                                                SnapsToDevicePixels="True">
+                                                        <Border BorderThickness="1" BorderBrush="Black" Background="White" Width="300" Height="300" CornerRadius="15" >
+                                                            <Grid>
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                                                </Grid.ColumnDefinitions>
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition  Height="3*"></RowDefinition>
+                                                                    <RowDefinition  Height="*"></RowDefinition>
+                                                                </Grid.RowDefinitions>
+                                                                <Border Padding="10" Grid.Row="0">
+                                                                    <StackPanel >
+                                                                        <TextBlock FontWeight="Bold" FontSize="25" Text="Editar Task" Focusable="False"></TextBlock>
+                                                                        <TextBlock 
+                                                                        Margin="0 5 0 5"
+                                                                        Text="Coloque aqui o título da tarefa e a quantidade de pomodoros desejados" 
+                                                                        FontSize="15"
+                                                                        Focusable="False"
+                                                                        TextWrapping="Wrap"
+                                                                        ></TextBlock>
+                                                                        <TextBox
+                                                                        FontSize="15"
+                                                                        Height="25"
+                                                                        Text="{Binding Path=Description}"
+                                                                        Margin="0 5 0 5"
+                                                                        ></TextBox>
+                                                                        <!--<TextBlock Text="{Binding Path=Status}" Focusable="False" />-->
+                                                                        <TextBlock
+                                                                         Text="Pomodoros Estimados" Focusable="False"
+                                                                         Margin="0 5 0 5"
+                                                                         FontSize="15"
+                                                                        ></TextBlock>
+                                                                        <TextBox
+                                                                        FontSize="15"
+                                                                        Height="25"
+                                                                        Margin="0 5 0 55"
+                                                                        Text="{Binding Path=MaxPomodoro}"></TextBox>
+                                                                    </StackPanel>
+                                                                </Border>
+                                                                <Border Padding="25" Background="#fbfbfb"  BorderBrush="Black" CornerRadius="0 0 15 15" Grid.Row="1">
+                                                                    <Grid >
+                                                                        <Grid.ColumnDefinitions>
+                                                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                                                        </Grid.ColumnDefinitions>
+                                                                        <Button Style="{StaticResource ButtonConfirm}"
+                                                                            Command="{Binding Source = {StaticResource vm}, Path = EditCommand}"
+                                                                            CommandParameter="{Binding}"                                                                
+                                                                            Grid.Column="0"
+                                                                            Margin="0 0 5 0" 
+                                                                            Content="Editar">
+                                                                            <Button.Resources>
+                                                                                <Style TargetType="Border">
+                                                                                    <Setter Property="CornerRadius" Value="2"></Setter>
+                                                                                </Style>
+                                                                            </Button.Resources>
+                                                                        </Button>
+                                                                        <Button Style="{StaticResource ButtonDelete}"
+                                                                                Command="{Binding Source = {StaticResource vm}, Path =  DeleteCommand}"
+                                                                                CommandParameter="{Binding}"                                                                
+                                                                                Grid.Column="1" Margin="0 0 5 0" Content="Deletar">
+                                                                            <Button.Resources>
+                                                                                <Style TargetType="Border">
+                                                                                    <Setter Property="CornerRadius" Value="2"></Setter>
+                                                                                </Style>
+                                                                            </Button.Resources>
+                                                                        </Button>
+                                                                        <Button Style="{StaticResource ButtonCancel}" 
+                                                                                Command="{Binding  Source = {StaticResource vm}, Path = CancelCommand}"
+                                                                                CommandParameter="{Binding}"                                                                
+                                                                                Grid.Column="2" Margin="0 0 5 0" Content="Cancelar">
+                                                                            <Button.Resources>
+                                                                                <Style TargetType="Border">
+                                                                                    <Setter Property="CornerRadius" Value="2"></Setter>
+                                                                                </Style>
+                                                                            </Button.Resources>
+                                                                        </Button>
+                                                                    </Grid>
+                                                                </Border>
+                                                            </Grid>
+                                                        </Border>
+                                                </Popup>
+                                                <fa5:ImageAwesome Height="10" Grid.Row="0" Grid.Column="0" Icon="{Binding Path=Status}" Foreground="#FFFF7400"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=Description}"></TextBlock>
+                                                <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal" >
+                                                    <TextBlock  Text="{Binding  Path=NumberPomodoro}"></TextBlock>
+                                                    <TextBlock  Text="/"></TextBlock>
+                                                    <TextBlock Text="{Binding  Path=MaxPomodoro}"></TextBlock>
+                                             </StackPanel>
+                                    </Grid>
                                 </ControlTemplate>
                             </Button.Template>
                         </Button>
@@ -320,12 +358,12 @@
 
                     <DataTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName = "border" Property= "Background" Value = "#e05656" ></Setter>
-                            <Setter TargetName = "btnListItem" Property= "Background" Value = "#e05656" ></Setter>
+                                <Setter TargetName = "border" Property= "Background" Value = "#ececec" ></Setter>
+                                <Setter TargetName = "btnListItem" Property= "Background" Value = "#ececec" ></Setter>
                         </Trigger>
                         <DataTrigger Binding="{Binding  Path=Selected}" Value="True">
-                            <Setter TargetName = "border" Property= "Background" Value = "green" ></Setter>
-                            <Setter TargetName = "btnListItem" Property= "Background" Value = "green" ></Setter>
+                            <Setter TargetName = "border" Property= "Background" Value = "#e05656" ></Setter>
+                            <Setter TargetName = "btnListItem" Property= "Background" Value = "#e05656" ></Setter>
 
                        </DataTrigger>
                     </DataTemplate.Triggers>
@@ -333,4 +371,6 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
     </StackPanel>
+    </Border>
+
 </UserControl>

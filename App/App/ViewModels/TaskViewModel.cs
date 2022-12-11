@@ -38,10 +38,6 @@ namespace App.ViewModels
                     Id = pomod.Id.ToString(),
                     NumberPomodoro = NumberPomodoroState[index],
                     MaxPomodoro = pomod.maxPomodoro,
-                    //NumberSmallBreakInterval = pomod.numberSmallBreakInterval,
-                    //MaxSmallBreakInterval = pomod.maxSmallBreakInterval,
-                    //NumberLongBreakInterval = pomod.numberLongBreakInterval,
-                    //MaxLongBreakInterval = pomod.maxLongBreakInterval,
                     Description = pomod.description,
                     Status = pomod.status,
                     Selected = pomod.selected,
@@ -57,12 +53,7 @@ namespace App.ViewModels
             return new Pomodoro()
             {
                 Id = new Guid(wpfModel.Id),
-                //numberPomodoro = wpfModel.NumberPomodoro,
                 maxPomodoro = wpfModel.MaxPomodoro,
-                //numberSmallBreakInterval = wpfModel.NumberSmallBreakInterval,
-                //maxSmallBreakInterval = wpfModel.MaxSmallBreakInterval,
-                //numberLongBreakInterval = wpfModel.NumberLongBreakInterval,
-                //maxLongBreakInterval = wpfModel.MaxLongBreakInterval,
                 description = wpfModel.Description,
                 status = wpfModel.Status,
                 selected = wpfModel.Selected,
@@ -79,13 +70,8 @@ namespace App.ViewModels
                 pomodoroWPF.Add(new PomodoroWPFModel()
                 {
                     Id = pomod.Id.ToString(),
-                    //NumberPomodoro = pomod.numberPomodoro,
                     NumberPomodoro = NumberPomodoroState[index],
                     MaxPomodoro = pomod.maxPomodoro,
-                    //NumberSmallBreakInterval = pomod.numberSmallBreakInterval,
-                    //MaxSmallBreakInterval = pomod.maxSmallBreakInterval,
-                    //NumberLongBreakInterval = pomod.numberLongBreakInterval,
-                    //MaxLongBreakInterval = pomod.maxLongBreakInterval,
                     Description = pomod.description,
                     Status = pomod.status,
                     Selected = pomod.selected,
@@ -107,12 +93,7 @@ namespace App.ViewModels
                 {
                     Id = pomod.Id.ToString(),
                     NumberPomodoro = NumberPomodoroState[index],
-                    //NumberPomodoro = pomod.numberPomodoro,
                     MaxPomodoro = pomod.maxPomodoro,
-                    //NumberSmallBreakInterval = pomod.numberSmallBreakInterval,
-                    //MaxSmallBreakInterval = pomod.maxSmallBreakInterval,
-                    //NumberLongBreakInterval = pomod.numberLongBreakInterval,
-                    //MaxLongBreakInterval = pomod.maxLongBreakInterval,
                     Description = pomod.description,
                     Status = pomod.status,
                     Selected = pomod.selected,
@@ -145,26 +126,12 @@ namespace App.ViewModels
             OnMouseOver = new DelegateCommand(onMouseHover);
             SelectCommand = new DelegateCommand<object>(obj => selectCommand(obj));
             OpenPopUPCommand = new DelegateCommand<object>(obj => openPopUPCommand(obj));
-
             EditCommand = new DelegateCommand<object>(obj => editCommand(obj));
             DeleteCommand = new DelegateCommand<object>(obj => deleteCommand(obj));
             CancelCommand = new DelegateCommand<object>(obj => cancelCommand(obj));
-            //OnMouseHover= new DelegateCommand(onMouseHover);
             PomodoroRepository.DeselectPomodoros();
             PomodoroRepository.SelectFirst();
             CounterManager.CounterFinished += sumOneInSelected;
-
-            //if (!alreadySubscribed)
-            //{
-            //    CounterManager.CounterFinished += sumOneInSelected;
-            //    alreadySubscribed = true;
-            //}
-
-            //counter = counter + 1;
-            //if(counter == 6)
-            //{
-            //    CounterManager.CounterFinished += sumOneInSelected;
-            //}
 
             var pomodoroList = PomodoroRepository.GetPomodoros();
             NumberPomodoroState = initializeNumberPomodoro(pomodoroList.Count);
@@ -193,11 +160,7 @@ namespace App.ViewModels
             foreach (var item in newItemList)
             {
                 ItemList.Add(item);
-                //if (count < 1)
-                //    ItemList.Add(item);
 
-                //}
-                //count++;
             }
 
         }
@@ -221,12 +184,8 @@ namespace App.ViewModels
             set { SetProperty(ref _numberPomodoroState, value); }
         }
 
-
-
-
         public DelegateCommand CreateCommand { get; set; }
         public DelegateCommand CancelCreateCommand { get; set; }
-
         public DelegateCommand AddCommand { get; set; }
         public DelegateCommand OpenPopUpCreateCommand { get; set; }
         public DelegateCommand OnMouseOver { get; set; }
@@ -236,7 +195,6 @@ namespace App.ViewModels
         public DelegateCommand<object> EditCommand { get; set; }
         public DelegateCommand<object> DeleteCommand { get; set; }
         public DelegateCommand<object> CancelCommand { get; set; }
-
 
         private void openPopUPCommand(object sender)
         {
@@ -257,8 +215,6 @@ namespace App.ViewModels
             NewDescription = "";
         }
 
-
-        //public DelegateCommand OnMouseHover { get; set; }
         private void addCommand()
         {
             CreatePopUpState = true;
@@ -282,7 +238,6 @@ namespace App.ViewModels
             SelectedPomodoro = pomodoro?.Id;
             PomodoroRepository.UpdatePomodoroStatus(new Guid(pomodoro.Id), true);
             RefreshCollection(convertPomodoro2WPFModel(PomodoroRepository.GetPomodoros()));
-            //sumOneInSelected();
 
         }
 
@@ -295,7 +250,6 @@ namespace App.ViewModels
                 {
                     maxPomodoro = int.Parse(NewNumberPomodoro),
                     description = NewDescription,
-                    //numberPomodoro = 0,
                     status = "Regular_Circle",
                     selected = true,
                 };
@@ -318,7 +272,6 @@ namespace App.ViewModels
         private void editCommand(object sender)
         {
 
-            Console.WriteLine("Vamos trigar o edit command");
             var pomodoro = sender as PomodoroWPFModel;
             SelectedPomodoro = pomodoro?.Id;
             var pomodoroIndex= findPomodoroIndex(pomodoro?.Id);
@@ -331,14 +284,11 @@ namespace App.ViewModels
 
             ItemList = new ObservableCollection<PomodoroWPFModel>(convertPomodoro2WPFModel(PomodoroRepository.GetPomodoros()));
             ClosePopUp(PomodoroRepository.GetPomodoros(), new Guid(pomodoro.Id));
-
-            //SelectedIndex = 
         }
 
         private void deleteCommand(object sender)
         {
 
-            Console.WriteLine("Vamos trigar o delete command");
             var pomodoro = sender as PomodoroWPFModel;
             var pomodoroIndex = findPomodoroIndex(pomodoro?.Id);
             if (pomodoroIndex >= 0)
@@ -401,17 +351,12 @@ namespace App.ViewModels
         }
 
         public void sumOneInSelected(object source, TimerEventArgs timer)
-        //public void sumOneInSelected()
         {
-            //var pomodorosList = PomodoroRepository.GetPomodoros();
-            //var newPomodorosList = convertPomodoro2WPFModel();
-            //RefreshCollection(newPomodorosList);
+
             counter++;
             if ( timer.ActiveCounter != "work")
             {
                 PomodoroRepository.DeselectPomodoros();
-
-                Console.WriteLine("Vamos trigar comando soma 1");
                 PomodoroWPFModel selectedPomodoro = sumUmLogic();
                 if (selectedPomodoro != null)
                 {
@@ -419,6 +364,10 @@ namespace App.ViewModels
                     if (pomodoroIndex >= 0)
                     {
                         NumberPomodoroState[pomodoroIndex] += 1;
+                        if (NumberPomodoroState[pomodoroIndex] == selectedPomodoro.MaxPomodoro )
+                        {
+                            selectedPomodoro.Status = "Solid_Check";
+                        }
                     }
 
                     PomodoroRepository.UpdatePomodoro(new Guid(selectedPomodoro.Id), convertWPFModel2Pomodoro(selectedPomodoro));
@@ -431,36 +380,14 @@ namespace App.ViewModels
             }
         }
 
-        //public void sumOneInSelected()
-        //{
-        //    //var pomodorosList = PomodoroRepository.GetPomodoros();
-        //    //var newPomodorosList = convertPomodoro2WPFModel();
-        //    //RefreshCollection(newPomodorosList);
-        //    PomodoroRepository.DeselectPomodoros();
-
-        //    Console.WriteLine("Vamos trigar comando soma 1");
-        //    PomodoroWPFModel selectedPomodoro = sumUmLogic();
-        //    if (selectedPomodoro != null)
-        //    {
-        //        PomodoroRepository.UpdatePomodoro(new Guid(selectedPomodoro.Id), convertWPFModel2Pomodoro(selectedPomodoro));
-        //        SelectedPomodoro = selectedPomodoro.Id;
-
-        //    }
-        //    var pomodoros = PomodoroRepository.GetPomodoros();
-
-        //    RefreshCollection(convertPomodoro2WPFModel(pomodoros));
-
-        //}
 
         private void cancelCommand(object sender)
         {
 
-            Console.WriteLine("Vamos trigar o cancel command");
             var pomodoro = sender as PomodoroWPFModel;
             ClosePopUp(PomodoroRepository.GetPomodoros(), new Guid(pomodoro.Id));
             ItemList = new ObservableCollection<PomodoroWPFModel>(convertPomodoro2WPFModel(PomodoroRepository.GetPomodoros()));
 
-            //SelectedIndex = 
         }
 
 
@@ -503,9 +430,7 @@ namespace App.ViewModels
 
         public void onMouseHover()
         {
-            Console.WriteLine("Vamos trigar o hover command");
             mouseOver = true;
-
         }
     }
 }

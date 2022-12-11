@@ -48,7 +48,7 @@ namespace App.Services
                 if (result != null)
                 {
                     result.selected = selected;
-                    result.status= "Solid_Check";
+                    //result.status= "Solid_Check";
                     context.Pomodoro.Attach(result);
                     context.Entry(result).State = EntityState.Modified;
                     context.SaveChanges();

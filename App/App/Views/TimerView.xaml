@@ -70,7 +70,9 @@
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <Grid >
-                        <Popup x:Name="ElementPopup" IsOpen="{Binding Source = {StaticResource vm}, Path = CreatePopUpState}"
+                        <Popup x:Name="ElementPopup" 
+                               AllowsTransparency = "True"                                               
+                               IsOpen="{Binding Source = {StaticResource vm}, Path = CreatePopUpState}"
                                         StaysOpen="True"
                                         Placement="left"
                                         PlacementTarget="{x:Null}"  Focusable="False"
