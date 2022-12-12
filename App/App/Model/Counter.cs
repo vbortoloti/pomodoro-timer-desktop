@@ -48,12 +48,20 @@ namespace App.Model
         public void Reset()
         {
             isRunning = false;
-            CountView.CountText = $"{countDuration}:00";
+            CountView.CountText = UpdateCounterString();
             TimerEvent.Stop();
             elapsedTime = new TimeSpan();
             PlannedEnd = new DateTime();
         }
-        
+
+        private string UpdateCounterString()
+        {
+            DateTime time = isSeconds
+                ? new DateTime().AddSeconds(countDuration)
+                : new DateTime().AddMinutes(countDuration);
+            return time.ToString("mm\\:ss");
+        }
+
         void TimerTick(object sender, EventArgs e)
         {
             elapsedTime = PlannedEnd - DateTime.Now;
@@ -75,7 +83,7 @@ namespace App.Model
         public Counter(int timeInMinutes)
         {
             countDuration = timeInMinutes;
-            TimerEvent.Interval = TimeSpan.FromMilliseconds(100);
+            TimerEvent.Interval = TimeSpan.FromMilliseconds(50);
             TimerEnd += CounterManager.OnTimerEnd;
         }
 

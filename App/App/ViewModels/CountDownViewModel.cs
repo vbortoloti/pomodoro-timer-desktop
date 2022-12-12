@@ -13,7 +13,7 @@ namespace App.ViewModels
 {
     public class CountDownViewModel : BindableBase
     {
-        private string _countText = $"{CounterManager.GetActiveCounter().countDuration}:00";
+        private string _countText = UpdateCounterString();
         public string CountText
         {
             get { return _countText; }
@@ -51,17 +51,22 @@ namespace App.ViewModels
 
         public void OnActiveCounterChange(object source, EventArgs e)
         {
+            CountText =  UpdateCounterString();
+        }
+
+        private static string UpdateCounterString()
+        {
             DateTime time;
             if (CounterManager.GetActiveCounter().isSeconds)
             {
-                 time = new DateTime().AddSeconds(CounterManager.GetActiveCounter().countDuration);
+                time = new DateTime().AddSeconds(CounterManager.GetActiveCounter().countDuration);
             }
             else
             {
-                 time = new DateTime().AddMinutes(CounterManager.GetActiveCounter().countDuration);
+                time = new DateTime().AddMinutes(CounterManager.GetActiveCounter().countDuration);
 
             }
-            CountText = time.ToString("mm\\:ss");
+            return time.ToString("mm\\:ss");
         }
 
         private static void PlaySound()
