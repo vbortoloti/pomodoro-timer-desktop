@@ -32,38 +32,43 @@ namespace App.ViewModels
             get { return _createPopUpState; }
             set { SetProperty(ref _createPopUpState, value);}
         }
+
+        public void Reset()
+        {
+            CounterManager.GetActiveCounter().Reset();
+        }
         
         private bool _isLowFocus = false;
         public bool IsLowFocus
         {
             get { return _isLowFocus; }
-            set { SetProperty(ref _isLowFocus, value); if (value == true) { CounterManager.workDuration = 10; CounterManager.shortDuration = 5; CounterManager.longDuration = 10; CounterManager.UpdateCountersDuration(); } }
+            set { SetProperty(ref _isLowFocus, value); if (value == true) { Reset(); CounterManager.workDuration = 10; CounterManager.shortDuration = 5; CounterManager.longDuration = 10; CounterManager.UpdateCountersDuration(); Reset();  } }
         }
         private bool _isDemostration = false;
         public bool IsDemostration
         {
             get { return _isDemostration; }
-            set { SetProperty(ref _isDemostration, value); if (value == true) { CounterManager.workDuration = 5; CounterManager.shortDuration = 2; CounterManager.longDuration = 4; CounterManager.UpdateCountersDurationInSeconds(); } }
+            set { SetProperty(ref _isDemostration, value); if (value == true) { Reset(); CounterManager.workDuration = 5; CounterManager.shortDuration = 2; CounterManager.longDuration = 4; CounterManager.UpdateCountersDurationInSeconds(); Reset();} }
         }
         private bool _isStandard = true;
         public bool IsStandard
         {
             get { return _isStandard; }
-            set { SetProperty(ref _isStandard, value); if (value == true) { CounterManager.workDuration = 25; CounterManager.shortDuration = 5; CounterManager.longDuration = 15; CounterManager.UpdateCountersDuration(); } }
+            set { SetProperty(ref _isStandard, value); if (value == true) {Reset(); CounterManager.workDuration = 25; CounterManager.shortDuration = 5; CounterManager.longDuration = 15; CounterManager.UpdateCountersDuration();Reset(); } }
         }
 
         private bool _isHighFocus = false;
         public bool IsHighFocus
         {
             get { return _isHighFocus; }
-            set { SetProperty(ref _isHighFocus, value); if (value == true) { CounterManager.workDuration = 40; CounterManager.shortDuration = 8; CounterManager.longDuration = 20; CounterManager.UpdateCountersDuration(); } }
+            set { SetProperty(ref _isHighFocus, value); if (value == true) {Reset(); CounterManager.workDuration = 40; CounterManager.shortDuration = 8; CounterManager.longDuration = 20; CounterManager.UpdateCountersDuration();Reset(); } }
         } 
         
         private bool _isIntenseFocus = false;
         public bool IsIntenseFocus
         {
             get { return _isIntenseFocus; }
-            set { SetProperty(ref _isIntenseFocus, value); if (value == true) { CounterManager.workDuration = 55; CounterManager.shortDuration = 10; CounterManager.longDuration = 25; CounterManager.UpdateCountersDuration(); } }
+            set { SetProperty(ref _isIntenseFocus, value); if (value == true) {Reset(); CounterManager.workDuration = 55; CounterManager.shortDuration = 10; CounterManager.longDuration = 25; CounterManager.UpdateCountersDuration();Reset(); } }
         }
 
         private bool _isCustom = false;
@@ -77,21 +82,21 @@ namespace App.ViewModels
         public int WorkSliderValue
         {
             get { return _workSliderValue; }
-            set { SetProperty(ref _workSliderValue, value); CounterManager.workDuration = value; CounterManager.UpdateCountersDuration(); }
+            set { SetProperty(ref _workSliderValue, value); Reset(); CounterManager.workDuration = value; CounterManager.UpdateCountersDuration(); }
         }
         
         private int _shortSliderValue = CounterManager.shortDuration;
         public int ShortSliderValue
         {
             get { return _shortSliderValue; }
-            set { SetProperty(ref _shortSliderValue, value); CounterManager.shortDuration = value; CounterManager.UpdateCountersDuration(); }
+            set { SetProperty(ref _shortSliderValue, value); Reset(); CounterManager.shortDuration = value; CounterManager.UpdateCountersDuration(); }
         }
         
         private int _longSliderValue = CounterManager.longDuration;
         public int LongSliderValue
         {
             get { return _longSliderValue; }
-            set { SetProperty(ref _longSliderValue, value); CounterManager.longDuration = value; CounterManager.UpdateCountersDuration();  }
+            set { SetProperty(ref _longSliderValue, value); Reset(); CounterManager.longDuration = value; CounterManager.UpdateCountersDuration();  }
         }
 
         public DelegateCommand CreateCommand { get; set; }
