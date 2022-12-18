@@ -9,7 +9,7 @@ Desenvolvido utilizando C#, **WPF**, padrão de projeto **MVVM**, framework **Pr
 ## Sobre a Técnica
 Pomodoro é uma técnica de gerenciamento de tempo que consiste em dividir o trabalho em intervalos chamados de **pomodos**, geralmente de 25 minutos, intercalados por pequenas pausas, as **short breaks**, geralmente de 5 minutos.
 
-A idéia é se manter 100% focado durante o pomodoro, e não tocar na tarefa durante a pause.
+A idéia é se manter 100% focado durante o pomodoro, e não tocar na tarefa durante a pausa.
 
 Após quatro ciclos de pomodoros, a próxima pause será longa, variando de 15 a 30 minutos, dependendo da pessoa.
 
