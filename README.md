@@ -1,6 +1,6 @@
 # Aplicativo Desktop Pomodoro Timer
 
-Este projeto foi desenvolvido como projeto final da Capacitação Tecnológica em Engenharia e Desenvolvimento de Software (CTEDS), segunda turma.
+Este projeto foi desenvolvido como projeto final da segunda turma da Capacitação Tecnológica em Engenharia e Desenvolvimento de Software (CTEDS), oferecido pelo departamento de Engenharia de Computação e Sistemas Digitais (PCS) da Poli-USP, com apoio da Samsung e do SiDi.
 
 Desenvolvido utilizando C#, **WPF**, padrão de projeto **MVVM**, framework **Prism** e um banco de dados **SQLite**.
 
