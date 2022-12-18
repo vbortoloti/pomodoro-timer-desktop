@@ -1,0 +1,376 @@
+﻿<UserControl x:Class="App.Views.TaskView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:App.Views"
+             xmlns:viewModel="clr-namespace:App.ViewModels"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:prism="http://prismlibrary.com/"
+             mc:Ignorable="d" 
+             xmlns:pomodoroWPFModel ="clr-namespace:App.WPFModel"
+             xmlns:fa5="http://schemas.fontawesome.com/icons/"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <viewModel:TaskViewModel x:Key="vm"/>
+        <pomodoroWPFModel:PomodoroWPFModel x:Key="pmvm"/>
+        
+        <Style x:Key="BorderConfiguration" TargetType="{x:Type Border}">
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="#ececec" />
+            <Style.Triggers >
+                <DataTrigger Binding="{Binding IsMouseOver}" Value="True" >
+                    <Setter Property= "Background" Value = "#e05656" ></Setter>
+
+                 </DataTrigger>
+                <!--<Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property= "Background" Value = "#e05656" ></Setter>
+                </Trigger>-->
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key = "AddButtonTrigger" TargetType = "Ellipse">
+            <Setter Property = "Fill" Value = "white" />
+            <Style.Triggers >
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property = "Fill" Value = "#e05656" ></Setter>
+                </Trigger>
+                
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key = "ListHoverTrigger" TargetType = "Button">
+            <Setter Property = "Background" Value = "white" />
+            <!--<EventSetter Event="MouseEnter" Handler="OnMouseOverCommand" />-->
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsMouseOver}" Value="True" >
+                    <Setter Property= "Background" Value = "#e05656" ></Setter>
+                </DataTrigger>
+            </Style.Triggers>
+            <!--<Style.Triggers >
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property= "Background" Value = "#e05656" ></Setter>
+                </Trigger>
+            </Style.Triggers>-->
+        </Style>
+
+        <Style x:Key="ButtonConfirm" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="blue" ></Setter>
+            <Setter Property="Foreground">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="White" Offset="0"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property ="IsMouseOver" Value="True">
+                    <Setter Property= "Foreground"  >
+                        <Setter.Value>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="Green" Offset="0"/>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="ButtonCancel" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="white" ></Setter>
+            <Setter Property="Foreground">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black" Offset="0"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property ="IsMouseOver" Value="True">
+                    <Setter Property= "Foreground"  >
+                        <Setter.Value>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="Green" Offset="0"/>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="ButtonDelete" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="red" ></Setter>
+            <Setter Property="Foreground">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="White" Offset="0"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property ="IsMouseOver" Value="True">
+                    <Setter Property= "Foreground"  >
+                        <Setter.Value>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="Green" Offset="0"/>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <!--Style="{StaticResource AddButtonTrigger}-->
+    <Border Background="White"  Padding="15">
+        <StackPanel Background="White" >
+        <Grid Height="60" VerticalAlignment="Top" Background="White" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="60"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock  Margin="10"  Grid.Row="0" Grid.Column="0" Text="Tasks" VerticalAlignment="Center" FontSize="25" FontWeight="Bold"></TextBlock>
+            <Button  Grid.Row="0" Grid.Column="1" Width="25" Height="25" FontSize="16" Command="{Binding Source = {StaticResource vm}, Path = OpenPopUpCreateCommand }" >
+                <Button.Content >
+                    <TextBlock   HorizontalAlignment="Center"  Text="+"></TextBlock>
+                </Button.Content>
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Grid >
+                            <Popup x:Name="ElementPopup"
+                                    AllowsTransparency = "True"
+                                    IsOpen="{Binding Source = {StaticResource vm}, Path = CreatePopUpState}"
+                                    StaysOpen="True"
+                                    Placement="Right"
+                                    PlacementTarget="{x:Null}"
+                                    Focusable="False"
+                                    SnapsToDevicePixels="True">
+                                    <Border Margin="0 0 0 0" Background="White" Width="300" Height="300" CornerRadius="15">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition  Height="3*"></RowDefinition>
+                                                <RowDefinition  Height="*"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Border  Grid.Row="0"  Padding="10">
+                                                <StackPanel>
+                                                <TextBlock FontWeight="Bold" FontSize="25" Text="Criar Task" Focusable="False"></TextBlock>
+                                                <TextBlock 
+                                                    Margin="0 5 0 5"
+                                                    Text="Coloque aqui o título da tarefa e a quantidade de pomodoros desejados" 
+                                                    FontSize="15"
+                                                    Focusable="False"
+                                                    TextWrapping="Wrap"
+                                                ></TextBlock>
+                                                <TextBox
+                                                    Text="{Binding Source = {StaticResource vm},  Path=NewDescription}"
+                                                    Margin="0 5 0 5"
+                                                    FontSize="15"
+                                                ></TextBox>
+                                                <!--<TextBlock Text="{Binding Path=Status}" Focusable="False" />-->
+                                                <TextBlock
+                                                    Text="Pomodoros Estimados" Focusable="False"
+                                                    Margin="0 5 0 5"
+                                                    FontSize="15"
+                                                 ></TextBlock>
+                                                <TextBox Margin="5 5 0 0" Text="{Binding Source = {StaticResource vm},  Path=NewNumberPomodoro}"></TextBox>
+
+                                            </StackPanel>
+                                            </Border>
+                                            <Border Padding="20" Background="#fbfbfb"  BorderBrush="Black" CornerRadius="0 0 15 15" Grid.Row="1">
+                                                <Grid >
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Button Style="{StaticResource ButtonConfirm}"
+                                                       Command="{Binding Source = {StaticResource vm}, Path = CreateCommand}"
+                                                       CommandParameter="{Binding}"                                                                
+                                                       Grid.Column="0" Margin="0 0 5 0" Content="Criar">
+                                                        <Button.Resources>
+                                                            <Style TargetType="Border">
+                                                                <Setter Property="CornerRadius" Value="2"></Setter>
+                                                            </Style>
+                                                        </Button.Resources>
+                                                    </Button>
+                                                    <Button Style="{StaticResource ButtonCancel}" 
+                                                        Command="{Binding  Source = {StaticResource vm}, Path = CancelCreateCommand}"
+                                                        CommandParameter="{Binding}"                                                                
+                                                        Grid.Column="2" Margin="0 0 5 0" Content="Cancelar">
+                                                        <Button.Resources>
+                                                            <Style TargetType="Border">
+                                                                <Setter Property="CornerRadius" Value="2"></Setter>
+                                                            </Style>
+                                                        </Button.Resources>
+                                                    </Button>
+
+                                                </Grid>
+                                            </Border>
+                                        </Grid>
+
+                                </Border>
+                            </Popup>
+                            <Ellipse Style="{StaticResource AddButtonTrigger}" StrokeDashArray="1 1" Stroke="#c2c2c2" StrokeThickness="2"  />
+                            <ContentPresenter />
+                        </Grid>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </Grid>
+        <ItemsControl Name="TasksComponent" ItemsSource="{Binding Source = {StaticResource vm}, Path = ItemList}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate >
+                    <Border  Margin="5" x:Name="border" Style="{StaticResource BorderConfiguration}">
+                        <Button x:Name="btnListItem"
+                                Style="{StaticResource ListHoverTrigger}"
+                                Command="{Binding Source = {StaticResource vm}, Path = SelectCommand}"
+                                CommandParameter="{Binding}"
+                                >
+                            <Button.InputBindings>
+                                <MouseBinding
+                                    MouseAction="LeftDoubleClick"
+                                    Command="{Binding Source = {StaticResource vm}, Path = OpenPopUPCommand}"
+                                    CommandParameter="{Binding}"
+                                 >
+                                </MouseBinding>
+                            </Button.InputBindings>
+                            <Button.Content >
+                                <TextBlock   HorizontalAlignment="Center"  Text="Texto de verificacao"></TextBlock>
+                            </Button.Content>
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Grid  Margin="10"  
+                                         >
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition ></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="5*"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                                <!--<Popup x:Name="ElementPopup" IsOpen="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=IsMouseOver,Mode=OneWay}"-->
+                                                <Popup x:Name="ElementPopup" 
+                                                AllowsTransparency = "True"                                               
+                                                IsOpen="{Binding Path = PopUpShowState}"                                               
+                                                StaysOpen="True"
+                                                Placement="Right"
+                                                PlacementTarget="{x:Null}"  Focusable="False"
+                                                SnapsToDevicePixels="True">
+                                                        <Border BorderThickness="1" BorderBrush="Black" Background="White" Width="300" Height="300" CornerRadius="15" >
+                                                            <Grid>
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                                                </Grid.ColumnDefinitions>
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition  Height="3*"></RowDefinition>
+                                                                    <RowDefinition  Height="*"></RowDefinition>
+                                                                </Grid.RowDefinitions>
+                                                                <Border Padding="10" Grid.Row="0">
+                                                                    <StackPanel >
+                                                                        <TextBlock FontWeight="Bold" FontSize="25" Text="Editar Task" Focusable="False"></TextBlock>
+                                                                        <TextBlock 
+                                                                        Margin="0 5 0 5"
+                                                                        Text="Coloque aqui o título da tarefa e a quantidade de pomodoros desejados" 
+                                                                        FontSize="15"
+                                                                        Focusable="False"
+                                                                        TextWrapping="Wrap"
+                                                                        ></TextBlock>
+                                                                        <TextBox
+                                                                        FontSize="15"
+                                                                        Height="25"
+                                                                        Text="{Binding Path=Description}"
+                                                                        Margin="0 5 0 5"
+                                                                        ></TextBox>
+                                                                        <!--<TextBlock Text="{Binding Path=Status}" Focusable="False" />-->
+                                                                        <TextBlock
+                                                                         Text="Pomodoros Estimados" Focusable="False"
+                                                                         Margin="0 5 0 5"
+                                                                         FontSize="15"
+                                                                        ></TextBlock>
+                                                                        <TextBox
+                                                                        FontSize="15"
+                                                                        Height="25"
+                                                                        Margin="0 5 0 55"
+                                                                        Text="{Binding Path=MaxPomodoro}"></TextBox>
+                                                                    </StackPanel>
+                                                                </Border>
+                                                                <Border Padding="25" Background="#fbfbfb"  BorderBrush="Black" CornerRadius="0 0 15 15" Grid.Row="1">
+                                                                    <Grid >
+                                                                        <Grid.ColumnDefinitions>
+                                                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                                                        </Grid.ColumnDefinitions>
+                                                                        <Button Style="{StaticResource ButtonConfirm}"
+                                                                            Command="{Binding Source = {StaticResource vm}, Path = EditCommand}"
+                                                                            CommandParameter="{Binding}"                                                                
+                                                                            Grid.Column="0"
+                                                                            Margin="0 0 5 0" 
+                                                                            Content="Editar">
+                                                                            <Button.Resources>
+                                                                                <Style TargetType="Border">
+                                                                                    <Setter Property="CornerRadius" Value="2"></Setter>
+                                                                                </Style>
+                                                                            </Button.Resources>
+                                                                        </Button>
+                                                                        <Button Style="{StaticResource ButtonDelete}"
+                                                                                Command="{Binding Source = {StaticResource vm}, Path =  DeleteCommand}"
+                                                                                CommandParameter="{Binding}"                                                                
+                                                                                Grid.Column="1" Margin="0 0 5 0" Content="Deletar">
+                                                                            <Button.Resources>
+                                                                                <Style TargetType="Border">
+                                                                                    <Setter Property="CornerRadius" Value="2"></Setter>
+                                                                                </Style>
+                                                                            </Button.Resources>
+                                                                        </Button>
+                                                                        <Button Style="{StaticResource ButtonCancel}" 
+                                                                                Command="{Binding  Source = {StaticResource vm}, Path = CancelCommand}"
+                                                                                CommandParameter="{Binding}"                                                                
+                                                                                Grid.Column="2" Margin="0 0 5 0" Content="Cancelar">
+                                                                            <Button.Resources>
+                                                                                <Style TargetType="Border">
+                                                                                    <Setter Property="CornerRadius" Value="2"></Setter>
+                                                                                </Style>
+                                                                            </Button.Resources>
+                                                                        </Button>
+                                                                    </Grid>
+                                                                </Border>
+                                                            </Grid>
+                                                        </Border>
+                                                </Popup>
+                                                <fa5:ImageAwesome Height="10" Grid.Row="0" Grid.Column="0" Icon="{Binding Path=Status}" Foreground="#FFFF7400"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=Description}"></TextBlock>
+                                                <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal" >
+                                                    <TextBlock  Text="{Binding  Path=NumberPomodoro}"></TextBlock>
+                                                    <TextBlock  Text="/"></TextBlock>
+                                                    <TextBlock Text="{Binding  Path=MaxPomodoro}"></TextBlock>
+                                             </StackPanel>
+                                    </Grid>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </Border>
+
+                    <DataTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName = "border" Property= "Background" Value = "#ececec" ></Setter>
+                                <Setter TargetName = "btnListItem" Property= "Background" Value = "#ececec" ></Setter>
+                        </Trigger>
+                        <DataTrigger Binding="{Binding  Path=Selected}" Value="True">
+                            <Setter TargetName = "border" Property= "Background" Value = "#e05656" ></Setter>
+                            <Setter TargetName = "btnListItem" Property= "Background" Value = "#e05656" ></Setter>
+
+                       </DataTrigger>
+                    </DataTemplate.Triggers>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </StackPanel>
+    </Border>
+
+</UserControl>

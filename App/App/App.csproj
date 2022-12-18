@@ -1,0 +1,67 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="NovaPasta\**" />
+    <Compile Remove="Services\NovaPasta\**" />
+    <EmbeddedResource Remove="NovaPasta\**" />
+    <EmbeddedResource Remove="Services\NovaPasta\**" />
+    <None Remove="NovaPasta\**" />
+    <None Remove="Services\NovaPasta\**" />
+    <Page Remove="NovaPasta\**" />
+    <Page Remove="Services\NovaPasta\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
+    <None Remove="Views\gear.png" />
+    <None Remove="Views\maximize.png" />
+    <None Remove="Views\minimize.png" />
+    <None Remove="Views\pause.png" />
+    <None Remove="Views\play.png" />
+    <None Remove="Views\reset.png" />
+    <None Remove="Views\tomato.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FontAwesome5" Version="2.1.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
+    <PackageReference Include="Prism.Core" Version="8.1.97" />
+    <PackageReference Include="Prism.DryIoc" Version="8.1.97" />
+    <PackageReference Include="Prism.Wpf" Version="8.1.97" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Views\gear.png" />
+    <Resource Include="Views\maximize.png" />
+    <Resource Include="Views\minimize.png" />
+    <Resource Include="Views\pause.png" />
+    <Resource Include="Views\play.png" />
+    <Resource Include="Views\reset.png" />
+    <Resource Include="Views\tomato.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>

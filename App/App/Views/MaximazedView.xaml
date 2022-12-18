@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="App.Views.MaximazedView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:App.Views"
+             mc:Ignorable="d" 
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             d:DesignHeight="720" d:DesignWidth="1280">
+    <Grid Background="AliceBlue">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="7*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0" Grid.Column="0" BorderBrush="#FFDADADA"  BorderThickness="0,1,0,0">
+                <ContentControl prism:RegionManager.RegionName="TimerRegion"/>
+            </Border>
+            <Border Grid.Row="0" Grid.Column="1" BorderBrush="#FFDADADA"  BorderThickness="1,1,0,0">
+                <ContentControl prism:RegionManager.RegionName="TaskRegion"/>
+            </Border>
+                
+            <ContentControl Grid.Row="1" Grid.ColumnSpan="2" prism:RegionManager.RegionName="MusicPlayerRegion"/>
+            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding WelcomeText}"/>
+        </Grid>
+    </Grid>
+</UserControl>
