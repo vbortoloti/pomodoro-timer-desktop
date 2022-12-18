@@ -2,7 +2,7 @@
 
 Este projeto foi desenvolvido como projeto final da Capacitação Tecnológica em Engenharia e Desenvolvimento de Software (CTEDS), segunda turma.
 
-Desenvolvido utilizando **WPF**, padrão de projeto **MVVM**, framework **Prism** e um banco de dados **SQLite**.
+Desenvolvido utilizando C#, **WPF**, padrão de projeto **MVVM**, framework **Prism** e um banco de dados **SQLite**.
 
 ![main_app](https://user-images.githubusercontent.com/55714338/208319148-343424a2-ce56-44b2-b74a-76342fa1fd0e.png)
 
